@@ -1,0 +1,304 @@
+body {
+  background-color: #000;
+}
+
+.game-content {
+  width: 920px;
+  height: 540px;
+  position: relative;
+}
+
+.game-content .tablero-image {
+  position: absolute;
+  object-fit:cover;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  height: 540px;
+}
+
+.relative {
+  position: relative;
+}
+
+.tablero {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.tablero-ancla {
+  margin: auto;
+  width: 2px;
+  left: 50%;
+  top: 50%;
+  height: 2px;
+}
+
+.tablero-panel {
+  position: absolute;
+  top: 38%;
+  left: 35%;
+  padding-left: 10px;
+  padding-top: 15px;
+  z-index: 0;
+}
+
+.tablero-recuadro {
+  width: 280px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.tablero-columnas {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-left: 13px;
+  padding-top: 10px;
+}
+
+.tablero-columna-panel {
+  width: 70px;
+  text-align: center;
+  font-size: 38px;
+  padding-left: 10px;
+  padding-top: 20px;
+  margin-left: 4px;
+  z-index: 1;
+}
+
+.tablero-columna-panel:nth-child(2) svg {
+  height: 150px;
+  margin-top: -8px;
+}
+
+.tablero-columna-panel-section {
+  width: 80px;
+  height: 240px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.color-picker-messages {
+  position: absolute;
+  left: 37%;
+  top: 34%;
+  width: 250px;
+}
+
+/* ====  1st Game color set ==== */
+/* ========  1st color set ======== */
+.game-color-picker-1 .tablero-recuadro svg .st0 {
+  fill: #8d9350;
+}
+
+.game-color-picker-1 .color-set-1 .tablero-columna-panel-section svg polygon.st0 {
+  fill: #b0852b;
+}
+
+.game-color-picker-1 .color-set-1 div:nth-child(2) {
+  color: #ef9c8c;
+}
+
+.game-color-picker-1 .color-set-1 div:nth-child(3) {
+  color: #e76d76
+}
+
+.game-color-picker-1 .color-set-1 div:nth-child(4) {
+  color: #8d9350
+}
+
+/* ======== 2nd color set ========  */
+
+.game-color-picker-1 .color-set-2 .tablero-columna-panel-section svg polygon.st0 {
+  fill: #e8ae58;
+}
+
+.game-color-picker-1 .color-set-2 div:nth-child(2) {
+  color: #ee916e;
+}
+
+.game-color-picker-1 .color-set-2 div:nth-child(3) {
+  color: #e76336
+}
+
+.game-color-picker-1 .color-set-2 div:nth-child(4) {
+  color: #d5ba7d
+}
+
+/* ======== 3rd color set ======== */
+.game-color-picker-1 .color-set-3 .tablero-columna-panel-section svg polygon.st0 {
+  fill: #d5ba7d;
+}
+
+.game-color-picker-1 .color-set-3 div:nth-child(2) {
+  color: #e8ae58;
+}
+
+.game-color-picker-1 .color-set-3 div:nth-child(3) {
+  color: #ef9c8c
+}
+
+.game-color-picker-1 .color-set-3 div:nth-child(4) {
+  color: #ee916e
+}
+
+
+
+/* ====  2nd Game color set ==== */
+/* ========  1st color set ======== */
+.game-color-picker-2 .tablero-recuadro svg .st0 {
+  fill: #ff9400;
+}
+
+.game-color-picker-2 .color-set-1 .tablero-columna-panel-section svg polygon.st0 {
+  fill: #a4ae60;
+}
+
+.game-color-picker-2 .color-set-1 div:nth-child(2) {
+  color: #ed2a1f;
+}
+
+.game-color-picker-2 .color-set-1 div:nth-child(3) {
+  color: #ff9288
+}
+
+.game-color-picker-2 .color-set-1 div:nth-child(4) {
+  color: #ff5f5a
+}
+
+/* ======== 2nd color set ========  */
+.game-color-picker-2 .color-set-2 .tablero-columna-panel-section svg polygon.st0 {
+  fill: #ff9288;
+}
+
+.game-color-picker-2 .color-set-2 div:nth-child(2) {
+  color: #ffba00;
+}
+
+.game-color-picker-2 .color-set-2 div:nth-child(3) {
+  color: #ff5f5a
+}
+
+.game-color-picker-2 .color-set-2 div:nth-child(4) {
+  color: #a4ae60
+}
+
+/* ======== 3rd color set ======== */
+.game-color-picker-2 .color-set-3 .tablero-columna-panel-section svg polygon.st0 {
+  fill: #ed2a1f;
+}
+
+.game-color-picker-2 .color-set-3 div:nth-child(2) {
+  color: #517f35;
+}
+
+.game-color-picker-2 .color-set-3 div:nth-child(3) {
+  color: #a4ae60
+}
+
+.game-color-picker-2 .color-set-3 div:nth-child(4) {
+  color: #ffba00
+}
+
+
+/* ====  3rd Game color set ==== */
+/* ========  1st color set ======== */
+.game-color-picker-3 .tablero-recuadro svg .st0 {
+  fill: #42231f;
+}
+
+.game-color-picker-3 .color-set-1 .tablero-columna-panel-section svg polygon.st0 {
+  fill: #a57b74;
+}
+
+.game-color-picker-3 .color-set-1 div:nth-child(2) {
+  color: #ff5763;
+}
+
+.game-color-picker-3 .color-set-1 div:nth-child(3) {
+  color: #ff1e10
+}
+
+.game-color-picker-3 .color-set-1 div:nth-child(4) {
+  color: #ff7577
+}
+
+/* ======== 2nd color set ========  */
+.game-color-picker-3 .color-set-2 .tablero-columna-panel-section svg polygon.st0 {
+  fill: #7f5152;
+}
+
+.game-color-picker-3 .color-set-2 div:nth-child(2) {
+  color: #ff8a93;
+}
+
+.game-color-picker-3 .color-set-2 div:nth-child(3) {
+  color: #a57b74
+}
+
+.game-color-picker-3 .color-set-2 div:nth-child(4) {
+  color: #ff7577
+}
+
+/* ======== 3rd color set ======== */
+.game-color-picker-3 .color-set-3 .tablero-columna-panel-section svg polygon.st0 {
+  fill: #a57b74;
+}
+
+.game-color-picker-3 .color-set-3 div:nth-child(2) {
+  color: #ce2146;
+}
+
+.game-color-picker-3 .color-set-3 div:nth-child(3) {
+  color: #ff5371
+}
+
+.game-color-picker-3 .color-set-3 div:nth-child(4) {
+  color: #ff8a93
+}
+
+
+.stars-background {
+  width: 100%;
+  height: 100%;
+
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#005fa9+0,191a1a+100 */
+  background: #005fa9; /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover,  #005fa9 0%, #191a1a 100%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover,  #005fa9 0%,#191a1a 100%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center,  #005fa9 0%,#191a1a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005fa9', endColorstr='#191a1a',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.stars-grid {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.star-div {
+  display: inline-flex;
+}
+
+.stargame-element {
+  display: block;
+  position: relative;
+  z-index: 0;
+}
+
+.star-div .circle {
+  background-color: #fff;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+.star-div .star {
+  width: 70px;
+  height: 70px;
+}

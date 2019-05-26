@@ -1,0 +1,17 @@
+<div class="stars-background">
+  <div class="stars-instructions">
+    <div class="star-tip"></div>
+    <div class="star-bar-message">
+      {{vm.statusBar.currentMessage}}
+    </div>
+  </div>
+  <div class="stars-grid">
+    <div class="star-div" ng-repeat="item in vm.grid.items" style="align-self: {{item.vAlign}};justify-content: {{item.hAlign}};width: {{item.width}}px; height: {{item.height}}px">
+      <div class="star" ng-if="item.type == 'star'" >
+        <ng-include src="'/assets/img/estrella.svg'"/>
+      </div>
+      <div class="circle" ng-if="item.type == 'circle'"></div>
+      <div ng-if="item.type == 'empty'">&nbsp;</div>
+    </div>
+  </div>
+</div>

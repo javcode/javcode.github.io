@@ -1,0 +1,9 @@
+<h1>Aliens</h1>
+<div class="alien-grid">
+  <div class="alien-circle {{circle.circleClass}}" ng-repeat="circle in vm.grid" ng-style="circle.style">
+    <ng-include class="circle-svg-container" src="'/assets/img/alien-circle.svg'"/>
+    <div class="alien {{circle.alienClass}}" ng-if="circle.isAlien">
+      <ng-include class="alien-svg-container" src="'/assets/img/alien.svg'"/>
+    </div>
+  </div>
+</div>

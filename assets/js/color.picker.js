@@ -57,8 +57,8 @@
       vm.statusBar = {
         currentMessage: 'Test'
       }
-      vm.interGameMessage = 'Bien hecho! Una vez más'
-      vm.gameFinishedMessage = 'Felicitaciones'
+      vm.interGameMessage = '00:00'
+      vm.gameFinishedMessage = '00:00'
 
       $scope.$on('$viewContentLoaded', function() {
         createButtonColumns();
@@ -89,16 +89,16 @@
         }
         resultService.startGame();
         vm.enableColorPickerGame = true;
-        vm.timeLeft = 10;
+        vm.timeLeft = 5;
         vm.timer = setInterval(function() {
-          setStatusBarMessage("Presiona todos los triangulos: " + vm.timeLeft);
+          setStatusBarMessage("00:" + (vm.timeLeft > 9 ? '':'0') + vm.timeLeft);
           vm.timeLeft--;
           checkIfGameIsFinished();
         }, 1000);
       }
 
       function checkIfGameIsFinished() {
-        if(vm.timeLeft <= 0) {
+        if(vm.timeLeft < 0) {
           clearInterval(vm.timer);
           vm.enableColorPickerGame = false;
           vm.gameSets[vm.currentGameSetIndex].result = _.clone(vm.colorSets);
@@ -116,6 +116,14 @@
 
       function gameFinished() {
         setStatusBarMessage(vm.gameFinishedMessage);
+        $("body").zoomTo({
+          targetsize: 1,
+          animationendcallback: function() {
+            $state.go('intro', {
+              state:  'second'
+            });
+          }
+        });
         console.log('GAME FINISHED');
       }
 
@@ -152,7 +160,6 @@
       function clickButton(item, $index) {
         var itemSelection = _.find(vm.colorSets, { name: item.colorSet });
         itemSelection.value = itemSelection.target == $index;
-        console.log('vm.colorSets', vm.colorSets)
       }
 
     };

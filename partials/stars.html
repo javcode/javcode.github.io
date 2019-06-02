@@ -1,16 +1,24 @@
 <div class="stars-background">
   <div class="stars-instructions">
-    <div class="star-tip"></div>
     <div class="star-bar-message">
-      {{vm.statusBar.currentMessage}}
+      <p class="inline-block">{{vm.statusBar.timeLeft}}</p>
+      <div class="arrow-right pull-right"></div>
+      <p class="inline-block pull-right">{{vm.statusBar.currentMessage}}</p>
+    </div>
+    <div class="star-tip">
+      <div class="star-div {{vm.colorConfigurations[vm.currentColorSetIndex].name}}">
+        <div class="star star-color-set-2">
+          <ng-include src="'/assets/img/estrella.svg'"/>
+        </div>
+      </div>
     </div>
   </div>
   <div class="stars-grid">
-    <div class="star-div" ng-repeat="item in vm.grid.items" style="align-self: {{item.vAlign}};justify-content: {{item.hAlign}};width: {{item.width}}px; height: {{item.height}}px">
-      <div class="star" ng-if="item.type == 'star'" >
+    <div class="star-div {{item.colorSetClass}}" ng-repeat="item in vm.grid.items" ng-style="item.style">
+      <div class="star {{item.colorClass}}" ng-if="item.type == 'star'" ng-click="vm.starClick(item)" ng-style="item.rotation">
         <ng-include src="'/assets/img/estrella.svg'"/>
       </div>
-      <div class="circle" ng-if="item.type == 'circle'"></div>
+      <div class="circle {{item.colorClass}}" ng-if="item.type == 'circle'"></div>
       <div ng-if="item.type == 'empty'">&nbsp;</div>
     </div>
   </div>

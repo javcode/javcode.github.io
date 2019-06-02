@@ -1,11 +1,38 @@
 body {
   background-color: #000;
+  font-family: 'Sniglet', cursive;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.pull-right {
+  float: right;
 }
 
 .game-content {
   width: 920px;
   height: 540px;
   position: relative;
+}
+
+.video-js {
+  width: 640px !important;
+  height: 320px !important;
+}
+
+.video-container {
+  width: 640px !important;
+  height: 320px !important;
+  margin: auto;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.video-container .next-state-button {
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .game-content .tablero-image {
@@ -28,6 +55,11 @@ body {
   height: 100%;
 }
 
+.grayscale {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+
 .tablero-ancla {
   margin: auto;
   width: 2px;
@@ -46,48 +78,70 @@ body {
 }
 
 .tablero-recuadro {
-  width: 280px;
+  width: 259px;
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 6px;
+  top: 23px;
 }
 
 .tablero-columnas {
   display: flex;
   flex-wrap: nowrap;
   padding-left: 13px;
-  padding-top: 10px;
+  padding-top: 24px;
 }
 
 .tablero-columna-panel {
   width: 70px;
   text-align: center;
   font-size: 38px;
-  padding-left: 10px;
+  padding-left: 0px;
   padding-top: 20px;
   margin-left: 4px;
   z-index: 1;
 }
 
 .tablero-columna-panel:nth-child(2) svg {
-  height: 150px;
+  height: 135px;
   margin-top: -8px;
 }
 
 .tablero-columna-panel-section {
-  width: 80px;
-  height: 240px;
+  width: 70px;
   position: absolute;
   left: 0;
-  top: 0;
+  top: 12px;
   z-index: -1;
 }
 
-.color-picker-messages {
+.tablero-reloj {
+  width: 40px;
+  display: inline-block;
+  margin-right: 13px;
+  margin-left: 25px;
+}
+
+.tablero-reloj:nth-child(2) {
+  transform: rotate(140deg) translate(-23px, -53px);
+}
+
+.tablero-reloj-panel {
   position: absolute;
-  left: 37%;
-  top: 34%;
-  width: 250px;
+  top: -19px;
+  width: 100%;
+}
+
+.tablero-reloj-juego {
+  width: 100px;
+  position: absolute;
+  right: 23%;
+  top: 32%;
+}
+
+.color-picker-message {
+  position: absolute;
+  top: 62px;
+  left: 20px;
 }
 
 /* ====  1st Game color set ==== */
@@ -111,6 +165,31 @@ body {
 .game-color-picker-1 .color-set-1 div:nth-child(4) {
   color: #8d9350
 }
+
+.game-color-picker-1 .tablero-reloj:nth-child(1) svg .st0 {
+  fill: #af7a73;
+}
+
+.game-color-picker-1 .tablero-reloj:nth-child(1) svg .st1 {
+  fill: #df2a45;
+}
+
+.game-color-picker-1 .tablero-reloj:nth-child(2) svg .st0 {
+  fill: #ec8a87;
+}
+
+.game-color-picker-1 .tablero-reloj:nth-child(2) svg .st1 {
+  fill: #df2a45;
+}
+
+.game-color-picker-1 .tablero-reloj:nth-child(3) svg .st0 {
+  fill: #8d9350;
+}
+
+.game-color-picker-1 .tablero-reloj:nth-child(3) svg .st1 {
+  fill: #df2a45;
+}
+
 
 /* ======== 2nd color set ========  */
 
@@ -206,6 +285,34 @@ body {
 }
 
 
+.game-color-picker-2 .tablero-reloj:nth-child(1) svg .st0 {
+  fill: #af7a73;
+}
+
+.game-color-picker-2 .tablero-reloj:nth-child(1) svg .st1 {
+  fill: #df2a45;
+}
+
+.game-color-picker-2 .tablero-reloj:nth-child(2) svg .st0 {
+  fill: #ec8a87;
+}
+
+.game-color-picker-2 .tablero-reloj:nth-child(2) svg .st1 {
+  fill: #df2a45;
+}
+
+.game-color-picker-2 .tablero-reloj:nth-child(3) svg .st0 {
+  fill: #8d9350;
+}
+
+.game-color-picker-2 .tablero-reloj:nth-child(3) svg .st1 {
+  fill: #df2a45;
+}
+
+
+
+
+
 /* ====  3rd Game color set ==== */
 /* ========  1st color set ======== */
 .game-color-picker-3 .tablero-recuadro svg .st0 {
@@ -263,6 +370,33 @@ body {
 }
 
 
+.game-color-picker-3 .tablero-reloj:nth-child(1) svg .st0 {
+  fill: #af7a73;
+}
+
+.game-color-picker-3 .tablero-reloj:nth-child(1) svg .st1 {
+  fill: #df2a45;
+}
+
+.game-color-picker-3 .tablero-reloj:nth-child(2) svg .st0 {
+  fill: #ec8a87;
+}
+
+.game-color-picker-3 .tablero-reloj:nth-child(2) svg .st1 {
+  fill: #df2a45;
+}
+
+.game-color-picker-3 .tablero-reloj:nth-child(3) svg .st0 {
+  fill: #8d9350;
+}
+
+.game-color-picker-3 .tablero-reloj:nth-child(3) svg .st1 {
+  fill: #df2a45;
+}
+
+
+
+
 .stars-background {
   width: 100%;
   height: 100%;
@@ -276,14 +410,52 @@ body {
 }
 
 .stars-grid {
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 80%;
   display: flex;
   flex-wrap: wrap;
+  margin: auto;
 }
 
 .star-div {
   display: inline-flex;
+}
+
+.stars-instructions {
+  height: 100px;
+  display: flex;
+}
+
+.stars-instructions .star-tip {
+  align-self: center;
+  width: 100px;
+  justify-content: center;
+  text-align: center;
+  border: 5px solid aqua;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.stars-instructions .star-bar-message {
+  width: 100%;
+  color: #fff;
+  font-size: 30px;
+  align-self: center;
+  text-align: left;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin: 0;
+}
+
+
+.arrow-right {
+  width: 0; 
+  height: 0;
+  display: inline-block;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  
+  border-left: 20px solid aqua;
 }
 
 .stargame-element {
@@ -293,12 +465,199 @@ body {
 }
 
 .star-div .circle {
-  background-color: #fff;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 15px;
+  height: 15px;
 }
-.star-div .star {
-  width: 70px;
-  height: 70px;
+
+.star-div .star svg {
+  width: 60px;
+  height: 60px;
+}
+
+
+/* star-colors-1 */
+
+.star-colors-1 .star-color-set-1 svg path.st0 {
+  fill: #e3526f;
+}
+
+.star-colors-1 .star-color-set-2 svg path.st0 {
+  fill: #8b5051;
+}
+
+.star-colors-1 .star-color-set-3 svg path.st0 {
+  fill: #af7a73;
+}
+
+.star-colors-1 .star-color-set-4 svg path.st0 {
+  fill: #491f1a;
+}
+
+.star-colors-1 .circle.star-color-set-1 {
+  background-color: #af7a73;
+}
+
+.star-colors-1 .circle.star-color-set-2 {
+  background-color: #8b5051;
+}
+
+/* star-colors-2 */
+
+.star-colors-2 .star-color-set-1 svg path.st0 {
+  fill: #5d9750;
+}
+
+.star-colors-2 .star-color-set-2 svg path.st0 {
+  fill: #ee8b25;
+}
+
+.star-colors-2 .star-color-set-3 svg path.st0 {
+  fill: #ec8a87;
+}
+
+
+.star-colors-2 .circle.star-color-set-1 {
+  background-color: #e55b5d;
+}
+
+.star-colors-2 .circle.star-color-set-2 {
+  background-color: #ec8a87;
+}
+
+.star-colors-2 .circle.star-color-set-3 {
+  background-color: #ee8b25;
+}
+
+.star-colors-2 .circle.star-color-set-4 {
+  background-color: #f5af19;
+}
+
+/* star-colors-3 */
+
+.star-colors-3 .star-color-set-1 svg path.st0 {
+  fill: #e76336;
+}
+
+.star-colors-3 .star-color-set-2 svg path.st0 {
+  fill: #8d9350;
+}
+
+.star-colors-3 .star-color-set-3 svg path.st0 {
+  fill: #d5ba7d;
+}
+
+.star-colors-3 .star-color-set-4 svg path.st0 {
+  fill: #b0852b;
+}
+
+.star-colors-3 .star-color-set-5 svg path.st0 {
+  fill: #5d9750;
+}
+
+.star-colors-3 .circle.star-color-set-1 {
+  background-color: #8d9350;
+}
+
+.star-colors-3 .circle.star-color-set-2 {
+  background-color: #d5ba7d;
+}
+
+.star-colors-3 .circle.star-color-set-3 {
+  background-color: #e8ae58;
+}
+
+
+/*  ALIENS */
+
+.alien-grid {
+  width: 100%;
+  height: 85%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  z-index: 0;
+}
+
+.alien-grid .alien-circle {
+  position: relative;
+  text-align: center;
+}
+
+.alien-grid .alien-circle .circle-svg-container {
+  
+}
+
+.alien-grid .alien-circle .circle-svg-container svg {
+  width: 70%;
+}
+
+.alien-grid .alien-circle .alien {
+  z-index: 1;
+  position: absolute;
+  top: 5%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+}
+
+.alien-grid .alien-circle .alien .alien-svg-container svg {
+  width: 40%; 
+}
+
+
+.alien-grid .alien-circle.circle-color-set-1 .circle-svg-container svg .st0 {
+  fill: #6b327e;
+}
+
+.alien-grid .alien-circle.circle-color-set-2 .circle-svg-container svg .st0 {
+  fill: #f6b73e;
+}
+
+.alien-grid .alien-circle.circle-color-set-3 .circle-svg-container svg .st0 {
+  fill: #b0852b;
+}
+
+.alien-grid .alien-circle.circle-color-set-4 .circle-svg-container svg .st0 {
+  fill: #af7a73;
+}
+
+.alien-grid .alien-circle.circle-color-set-5 .circle-svg-container svg .st0 {
+  fill: #e76115;
+}
+
+.alien-grid .alien-circle.circle-color-set-6 .circle-svg-container svg .st0 {
+  fill: #649563;
+}
+
+.alien-grid .alien-circle.circle-color-set-7 .circle-svg-container svg .st0 {
+  fill: #57acde;
+}
+
+.alien-grid .alien-circle.circle-color-set-8 .circle-svg-container svg .st0 {
+  fill: #e3526f;
+}
+
+.alien-grid .alien-circle .alien.alien-color-set-1 .alien-svg-container svg .st1 {
+  fill: #e3526f;
+}
+
+.alien-grid .alien-circle .alien.alien-color-set-2 .alien-svg-container svg .st1 {
+  fill: #f6b73e;
+}
+
+.alien-grid .alien-circle .alien.alien-color-set-3 .alien-svg-container svg .st1 {
+  fill: #ee9272;
+}
+
+.alien-grid .alien-circle .alien.alien-color-set-4 .alien-svg-container svg .st1 {
+  fill: #6b327e;
+}
+
+.alien-grid .alien-circle .alien.alien-color-set-5 .alien-svg-container svg .st1 {
+  fill: #649563;
+}
+
+.alien-grid .alien-circle .alien.alien-color-set-6 .alien-svg-container svg .st1 {
+  fill: #e76336;
 }

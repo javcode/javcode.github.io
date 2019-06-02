@@ -33,14 +33,24 @@ function stateConfig($stateProvider) {
             controller: 'starsSpottingController',
             controllerAs: 'vm'
         })
+        .state("aliens", {
+            url: '/aliens',
+            templateUrl : "/partials/aliens.html",
+            controller: 'aliensController',
+            controllerAs: 'vm'
+        })
         .state("intro", {
             url: '/intro',
             templateUrl :  "/partials/intro.html",
             controller: 'introController',
-            controllerAs: 'vm'
+            controllerAs: 'vm',
+            params: {
+                state: null
+            }
         })
         .state('index', {
             url: '/',
-            template : "<h1>Bienvenido</h1><a href='#!intro'>Iniciar Juego</a>"
+            template : "",
+            controller: 'indexController',
         });
 };

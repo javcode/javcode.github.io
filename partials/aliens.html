@@ -1,4 +1,14 @@
-<h1>Aliens</h1>
+<div class="alien-instructions">
+  <div class="inline-flex tablero-reloj-juego-stars">
+    <ng-include class="reloj" src="'/assets/img/reloj.svg'"/>
+    <div class="alien-game-timer">
+      {{vm.statusBar.timeLeft}}
+    </div>
+  </div>
+  <div class="tablero-instrucciones-juego-alien">
+    {{vm.statusBar.currentMessage}}
+  </div>
+</div>
 <div class="alien-grid">
   <div class="alien-circle {{circle.circleClass}}" ng-repeat="circle in vm.grid" ng-style="circle.style">
     <ng-include class="circle-svg-container" src="'/assets/img/alien-circle.svg'"/>

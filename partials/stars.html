@@ -1,9 +1,16 @@
 <div class="stars-background">
   <div class="stars-instructions">
     <div class="star-bar-message">
-      <p class="inline-block">{{vm.statusBar.timeLeft}}</p>
+      <div class="inline-flex tablero-reloj-juego-stars">
+        <ng-include class="reloj" src="'/assets/img/reloj.svg'"/>
+        <div class="star-game-timer">
+          {{vm.statusBar.timeLeft}}
+        </div>
+      </div>
       <div class="arrow-right pull-right"></div>
-      <p class="inline-block pull-right">{{vm.statusBar.currentMessage}}</p>
+      <div class="tablero-instrucciones-juego-stars pull-right">
+        {{vm.statusBar.currentMessage}}
+      </div>
     </div>
     <div class="star-tip">
       <div class="star-div {{vm.colorConfigurations[vm.currentColorSetIndex].name}}">

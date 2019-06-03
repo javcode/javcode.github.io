@@ -7,6 +7,10 @@ body {
   display: inline-block;
 }
 
+.inline-flex {
+  display: inline-flex;
+}
+
 .pull-right {
   float: right;
 }
@@ -138,10 +142,27 @@ body {
   top: 32%;
 }
 
+.tablero-instrucciones-juego {
+  width: 200px;
+  position: absolute;
+  right: 13%;
+  top: 60%;
+  background: #9A999E;
+  border: 5px solid #E6B54A;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.tablero-instrucciones-juego .tablero-instrucciones-juego-figura {
+  display: inline-block;
+}
+
 .color-picker-message {
   position: absolute;
   top: 62px;
-  left: 20px;
+  left: 18px;
+  width: 65%;
+  text-align: center;
 }
 
 /* ====  1st Game color set ==== */
@@ -411,7 +432,7 @@ body {
 
 .stars-grid {
   width: 90%;
-  height: 80%;
+  height: 75%;
   display: flex;
   flex-wrap: wrap;
   margin: auto;
@@ -422,7 +443,7 @@ body {
 }
 
 .stars-instructions {
-  height: 100px;
+  height: 25%;
   display: flex;
 }
 
@@ -431,14 +452,13 @@ body {
   width: 100px;
   justify-content: center;
   text-align: center;
-  border: 5px solid aqua;
   border-radius: 50%;
   padding: 10px;
 }
 
 .stars-instructions .star-bar-message {
   width: 100%;
-  color: #fff;
+  color: #000;
   font-size: 30px;
   align-self: center;
   text-align: left;
@@ -451,11 +471,12 @@ body {
 .arrow-right {
   width: 0; 
   height: 0;
-  display: inline-block;
+  display: inline-flex;
   border-top: 20px solid transparent;
   border-bottom: 20px solid transparent;
   
-  border-left: 20px solid aqua;
+  border-left: 20px solid #E6B54A;
+  margin: 20px;
 }
 
 .stargame-element {
@@ -474,6 +495,32 @@ body {
   width: 60px;
   height: 60px;
 }
+
+.tablero-instrucciones-juego-stars {
+  width: 70%;
+  background: #9A999E;
+  border: 5px solid #E6B54A;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.tablero-reloj-juego-stars .reloj {
+  width: 100px;
+  position: absolute;
+  top: 0;
+}
+
+.tablero-reloj-juego-stars .star-game-timer {
+  color: #000;
+  font-size: 20px;
+  z-index: 1;
+  text-align: center;
+  width: 100px;
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-top: 30px;
+}
+
 
 
 /* star-colors-1 */
@@ -569,10 +616,39 @@ body {
 
 
 /*  ALIENS */
+.alien-instructions {
+  width: 100%;
+  height: 25%;
+  display: flex;
+}
+
+.alien-instructions .alien-game-timer {
+  color: #000;
+  font-size: 20px;
+  z-index: 1;
+  text-align: center;
+  width: 100px;
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-top: 60px;
+}
+
+.alien-instructions .tablero-instrucciones-juego-alien {
+  min-width: 70%;
+  background: #9A999E;
+  border: 5px solid #E6B54A;
+  border-radius: 10px;
+  padding: 10px;
+  height: 100px;
+  flex-grow: 1;
+  height: 40%;
+  text-align: center;
+  margin: 20px;
+}
 
 .alien-grid {
   width: 100%;
-  height: 85%;
+  height: 75%;
   display: flex;
   flex-wrap: wrap;
   margin: auto;
@@ -584,9 +660,6 @@ body {
   text-align: center;
 }
 
-.alien-grid .alien-circle .circle-svg-container {
-  
-}
 
 .alien-grid .alien-circle .circle-svg-container svg {
   width: 70%;

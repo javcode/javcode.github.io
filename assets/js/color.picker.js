@@ -8,6 +8,7 @@
   function colorPickerController($scope, $state, $q, $timeout, resultService) {
       var vm = this;
 
+      vm.gameTime = 10;
       vm.enableColorPickerGame = false; // Enable after playing instructions
       vm.buttonsList = [];
       vm.gameSets = [
@@ -55,10 +56,10 @@
 
       vm.clickButton = clickButton;
       vm.statusBar = {
-        currentMessage: 'Test'
+        currentMessage: 'Iniciando'
       }
-      vm.interGameMessage = '00:00'
-      vm.gameFinishedMessage = '00:00'
+      vm.interGameMessage = 'Una vez más'
+      vm.gameFinishedMessage = 'Bien hecho'
 
       $scope.$on('$viewContentLoaded', function() {
         createButtonColumns();
@@ -72,7 +73,7 @@
         var deferred = $q.defer();
         $timeout(function() {
           deferred.resolve(true);
-        }, 5000);
+        }, 2000);
 
         return deferred.promise;
       }
@@ -89,7 +90,7 @@
         }
         resultService.startGame();
         vm.enableColorPickerGame = true;
-        vm.timeLeft = 5;
+        vm.timeLeft = vm.gameTime;
         vm.timer = setInterval(function() {
           setStatusBarMessage("00:" + (vm.timeLeft > 9 ? '':'0') + vm.timeLeft);
           vm.timeLeft--;

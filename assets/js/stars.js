@@ -8,7 +8,7 @@
       var flexHorizontalPositions = ['center', 'flex-end', 'flex-start'];
       
       vm.gameTime = 10;
-      vm.gameStartDelay = 5000;
+      vm.gameStartDelay = 3000;
       vm.timeLeft = vm.gameTime;
       vm.grid = {
         dimensions: {
@@ -175,7 +175,6 @@
       }
 
       function startGame() {
-        resultService.startGame();
         vm.gameInterval = setInterval(function() {
           if(vm.timeLeft <= 0) {
             if(vm.currentColorSetIndex < 2) {

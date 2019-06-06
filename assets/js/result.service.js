@@ -1,38 +1,37 @@
 (function () {
   'use strict';
+
   angular.module('app')
-    .factory('resultService', function() {
-    var results = {};
+    .factory('resultService', resultService);
 
-    var history = [];
+  function resultService () {
+      var vm = this;
+      vm.results = {};
 
+      vm.history = [];
 
-    var gameStarted = false;
-
-    var service = {
-      startGame: function() {
-        gameStarted = true;
-        results = {};
-      },
-      setResult: function(game, index, result) {
-        if(!results[game]) {
-          results[game] = {};
+      var service = {
+        startGame: function(game) {
+          if(vm.results[game]) {
+            vm.results[game] = {};
+          }
+        },
+        setResult: function(game, index, result) {
+          if(!vm.results[game]) {
+            vm.results[game] = {};
+          }
+          vm.results[game][index + ''] = result;
+          console.log('results', vm.results);
+        },
+        getResults(game, index) {
+          return _.get(vm.results, [game,index].join('.'));
+        },
+        finishGame() {
+          vm.history.push(_.clone(vm.results));
         }
-        results[game][index] = result;
-      },
-      isGameStarted: function() {
-        return gameStarted;
-      },
-      getResults(game, index) {
-        return _.get(results, game + '.' + index);
-      },
-      finishGame() {
-        gameStarted = false;
-        history.push(_.clone(results));
-      }
-    };
+      };
 
-    return service;
+      return service;
   }
 
-  )})();
+})();

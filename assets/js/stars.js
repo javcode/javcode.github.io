@@ -42,7 +42,8 @@
             'star-color-set-2': 3,
             'star-color-set-3': 3,
             'star-color-set-4': 2
-          }
+          },
+          match: vm.rightColorSetClass
         },
         {
           name: 'star-colors-2',
@@ -56,7 +57,8 @@
             'star-color-set-1': 4,
             'star-color-set-2': 4,
             'star-color-set-3': 4
-          }
+          },
+          match: vm.rightColorSetClass
         },
         {
           name: 'star-colors-3',
@@ -71,7 +73,8 @@
             'star-color-set-3': 2,
             'star-color-set-4': 1,
             'star-color-set-5': 2
-          }
+          },
+          match: vm.rightColorSetClass
         }
       ]
 
@@ -193,7 +196,9 @@
         clearInterval(vm.gameInterval);
         setStatusBarTimeLeft(0);
         setStatusBarMessage(vm.instructionsMessage);
+        resultService.setResult('stars-game', vm.currentColorSet, _.cloneDeep(vm.colorConfigurations[vm.currentColorSetIndex].result));
         vm.currentColorSetIndex++;
+        vm.currentColorSet = vm.colorSets[vm.currentColorSetIndex]
         vm.grid.items = [];
         init();
         vm.timeLeft = vm.gameTime;
@@ -203,6 +208,7 @@
         clearInterval(vm.gameInterval);
         setStatusBarTimeLeft(0);
         setStatusBarMessage(vm.finishMessage);
+        resultService.setResult('stars-game', vm.currentColorSet, _.cloneDeep(vm.colorConfigurations[vm.currentColorSetIndex].result));
         setTimeout(function() {
           $state.go('intro', {
             state: 'third'
@@ -223,12 +229,18 @@
       }
 
       function starClick(starItem) {
-        if(starItem.alreadyClicked) {
+        if(!starItem.alreadyClicked) {
           vm.colorConfigurations[vm.currentColorSetIndex].result[starItem.colorClass]++;
-          if(starItem.colorClass == vm.rightColorSetClass) {
-            vm.colorConfigurations[vm.currentColorSetIndex].result['matches']++;
+          if(!vm.colorConfigurations[vm.currentColorSetIndex].result.matches) {
+            vm.colorConfigurations[vm.currentColorSetIndex].result.matches = 0
+          }
+          if(!vm.colorConfigurations[vm.currentColorSetIndex].result.misses) {
+            vm.colorConfigurations[vm.currentColorSetIndex].result.misses = 0
+          }
+          if(starItem.colorClass == vm.colorConfigurations[vm.currentColorSetIndex].match) {
+            vm.colorConfigurations[vm.currentColorSetIndex].result.matches++;
           } else {
-            vm.colorConfigurations[vm.currentColorSetIndex].result['misses']++;
+            vm.colorConfigurations[vm.currentColorSetIndex].result.misses++;
           }
         }
         starItem.alreadyClicked = true;

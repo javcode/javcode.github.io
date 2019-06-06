@@ -64,6 +64,7 @@
       $scope.$on('$viewContentLoaded', function() {
         createButtonColumns();
         playInstructions()
+          .then(function() { resultService.startGame('color-picker'); })
           .then(function() { startColorPickerGame(true) })
           .catch(console.error);
       });
@@ -88,7 +89,6 @@
         if(zoomToPanel) {
           $('.tablero-columnas .tablero-columna-panel:nth-child(3) .icon:nth-child(3)').zoomTo({targetsize:0.12});
         }
-        resultService.startGame();
         vm.enableColorPickerGame = true;
         vm.timeLeft = vm.gameTime;
         vm.timer = setInterval(function() {
@@ -102,8 +102,11 @@
         if(vm.timeLeft < 0) {
           clearInterval(vm.timer);
           vm.enableColorPickerGame = false;
-          vm.gameSets[vm.currentGameSetIndex].result = _.clone(vm.colorSets);
-          resultService.setResult('color-picker', vm.currentGameSetIndex, vm.gameSets[vm.currentGameSetIndex].result);
+          vm.gameSets[vm.currentGameSetIndex].result = _.cloneDeep(vm.colorSets);
+          _.each(vm.colorSets, function(colorSet) {
+            delete colorSet.value;
+          })
+          resultService.setResult('color-picker', vm.gameSets[vm.currentGameSetIndex].name, vm.gameSets[vm.currentGameSetIndex].result);
           vm.currentGameSetIndex++;
           if(vm.currentGameSetIndex < vm.gameSets.length) {
             setStatusBarMessage(vm.interGameMessage);
@@ -125,7 +128,6 @@
             });
           }
         });
-        console.log('GAME FINISHED');
       }
 
       function shiftArrayToRight(arr, places) {

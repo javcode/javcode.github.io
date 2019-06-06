@@ -10,7 +10,7 @@
   </div>
 </div>
 <div class="alien-grid">
-  <div class="alien-circle {{circle.circleClass}}" ng-repeat="circle in vm.grid" ng-style="circle.style">
+  <div class="alien-circle {{circle.circleClass}}" ng-click="vm.circleClick(circle)" ng-repeat="circle in vm.grid" ng-style="circle.style">
     <ng-include class="circle-svg-container" src="'/assets/img/alien-circle.svg'"/>
     <div class="alien {{circle.alienClass}}" ng-if="circle.isAlien">
       <ng-include class="alien-svg-container" src="'/assets/img/alien.svg'"/>

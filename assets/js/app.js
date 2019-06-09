@@ -39,14 +39,24 @@ function stateConfig($stateProvider) {
             controller: 'aliensController',
             controllerAs: 'vm'
         })
-        .state("intro", {
-            url: '/intro',
-            templateUrl :  "/partials/intro.html",
-            controller: 'introController',
+        .state("video", {
+            url: '/video',
+            templateUrl :  "/partials/video.html",
+            controller: 'videoController',
             controllerAs: 'vm',
             params: {
                 state: null
             }
+        })
+        .state('menu', {
+            url: '/menu',
+            templateUrl :  "/partials/menu.html"
+        })
+        .state('results', {
+            url: '/results',
+            templateUrl :  "/partials/results.html",
+            controller: 'resultsController',
+            controllerAs: 'vm',
         })
         .state('index', {
             url: '/',

@@ -20,7 +20,7 @@
       </div>
     </div>
   </div>
-  <div class="stars-grid">
+  <div class="stars-grid" ng-show="vm.enableGame">
     <div class="star-div {{item.colorSetClass}}" ng-repeat="item in vm.grid.items" ng-style="item.style">
       <div class="star {{item.colorClass}}" ng-if="item.type == 'star'" ng-click="vm.starClick(item)" ng-style="item.rotation">
         <ng-include src="'/assets/img/estrella.svg'"/>

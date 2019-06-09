@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://unpkg.com/video.js@6/dist/video-js.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/global.css">
@@ -19,9 +20,11 @@
 
     <script src="/assets/js/app.js"></script>
     <script src="/assets/js/result.service.js"></script>
+    <script src="/assets/js/sound.service.js"></script>
     <script src="/assets/js/index.js"></script>
+    <script src="/assets/js/results.js"></script>
     <script src="/assets/js/aliens.js"></script>
-    <script src="/assets/js/intro.js"></script>
+    <script src="/assets/js/video.js"></script>
     <script src="/assets/js/color.picker.js"></script>
     <script src="/assets/js/stars.js"></script>
 
@@ -31,6 +34,11 @@
     <div class="game-content">
       <img class="tablero-image" src="/assets/img/tablero_nave_fondo.png" width="100%"/>
       <ui-view></ui-view>
+    </div>
+    <div class="audio-container">
+      <audio id="button-click">
+        <source src="/assets/sound/click.mp3" type="audio/mp3">
+      </audio>
     </div>
   </body>
 </html>

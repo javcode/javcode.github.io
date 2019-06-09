@@ -8,7 +8,14 @@
       var vm = this;
       vm.results = {};
 
-      vm.history = [];
+      vm.history =  [];
+
+      function init() {
+        var resultsHistory = localStorage.getItem('results');
+        if(resultsHistory && resultsHistory.length) {
+          vm.history = JSON.parse(resultsHistory);
+        }
+      }
 
       var service = {
         startGame: function(game) {
@@ -23,13 +30,19 @@
           vm.results[game][index + ''] = result;
           console.log('results', vm.results);
         },
-        getResults(game, index) {
+        getResults: function(game, index) {
           return _.get(vm.results, [game,index].join('.'));
         },
+        getAllResults: function() {
+          return _.keys(vm.results).length ? vm.results : (vm.history.length ? vm.history[vm.history.length-1] : {});
+        },
         finishGame() {
-          vm.history.push(_.clone(vm.results));
+          vm.history.push(_.cloneDeep(vm.results));
+          localStorage.setItem('results', JSON.stringify(_.cloneDeep(vm.history)));
         }
       };
+
+      init();
 
       return service;
   }

@@ -3,14 +3,19 @@
   angular.module('app')
     .controller('colorPickerController', colorPickerController);
 
-  colorPickerController.$inject = ['$scope', '$state', '$q', '$timeout', 'resultService'];
+  colorPickerController.$inject = ['$scope', '$state', '$q', '$timeout', 'resultService', 'soundService'];
 
-  function colorPickerController($scope, $state, $q, $timeout, resultService) {
+  function colorPickerController($scope, $state, $q, $timeout, resultService, soundService) {
       var vm = this;
 
       vm.gameTime = 10;
       vm.enableColorPickerGame = false; // Enable after playing instructions
       vm.buttonsList = [];
+      vm.buttonTypes = [
+        'square',
+        'circle',
+        'triangle'
+      ];
       vm.gameSets = [
         {
           name: 'game-color-picker-1'
@@ -26,11 +31,27 @@
       vm.currentGameSetIndex = 0;
       vm.currentGameSet = vm.gameSets[vm.currentGameSetIndex];
 
-      vm.buttonTypes = [
-        'square',
-        'circle',
-        'triangle'
-      ];
+      vm.colorBlindDetermination = {
+        'game-color-picker-1': {
+          'deutan': [
+            'color-set-1',
+            'color-set-2',
+            'color-set-3'
+          ]
+        },
+        'game-color-picker-2': {
+          'deutan': [
+            'color-set-1'
+          ]
+        },
+        'game-color-picker-3': {
+          'protan': [
+            'color-set-1',
+            'color-set-3'
+          ]
+        }
+      }
+
 
       vm.colorSets = [
         {
@@ -62,6 +83,7 @@
       vm.gameFinishedMessage = 'Bien hecho'
 
       $scope.$on('$viewContentLoaded', function() {
+        vm.enableColorPickerGame = false;
         createButtonColumns();
         playInstructions()
           .then(function() { resultService.startGame('color-picker'); })
@@ -72,9 +94,10 @@
 
       function playInstructions() {
         var deferred = $q.defer();
+
         $timeout(function() {
           deferred.resolve(true);
-        }, 2000);
+        }, 4000);
 
         return deferred.promise;
       }
@@ -86,10 +109,12 @@
       }
 
       function startColorPickerGame(zoomToPanel) {
-        if(zoomToPanel) {
-          $('.tablero-columnas .tablero-columna-panel:nth-child(3) .icon:nth-child(3)').zoomTo({targetsize:0.12});
-        }
         vm.enableColorPickerGame = true;
+        setTimeout(function() {
+          if(zoomToPanel) {
+            $('.tablero-columnas .tablero-columna-panel:nth-child(3) .icon:nth-child(3)').zoomTo({targetsize:0.12});
+          }
+        });
         vm.timeLeft = vm.gameTime;
         vm.timer = setInterval(function() {
           setStatusBarMessage("00:" + (vm.timeLeft > 9 ? '':'0') + vm.timeLeft);
@@ -102,10 +127,29 @@
         if(vm.timeLeft < 0) {
           clearInterval(vm.timer);
           vm.enableColorPickerGame = false;
-          vm.gameSets[vm.currentGameSetIndex].result = _.cloneDeep(vm.colorSets);
+          vm.gameSets[vm.currentGameSetIndex].result = {
+            clicks: _.cloneDeep(vm.colorSets)
+          }
           _.each(vm.colorSets, function(colorSet) {
             delete colorSet.value;
           })
+          var colorBlindDetermination = vm.colorBlindDetermination[vm.gameSets[vm.currentGameSetIndex].name];
+          if(colorBlindDetermination.deutan) {
+            vm.gameSets[vm.currentGameSetIndex].result.deutan = {
+              total: colorBlindDetermination.deutan.length,
+              hits: _.reduce(vm.gameSets[vm.currentGameSetIndex].result, function(sum,n) {
+                  return sum + (n.value == true && colorBlindDetermination.deutan.includes(n.name) ? 1 : 0);
+                }, 0)
+            }
+          }
+          if(colorBlindDetermination.protan) {
+            vm.gameSets[vm.currentGameSetIndex].result.protan = {
+              total: colorBlindDetermination.protan.length,
+              hits: _.reduce(vm.gameSets[vm.currentGameSetIndex].result, function(sum,n) {
+                  return sum + (n.value == true && colorBlindDetermination.protan.includes(n.name) ? 1 : 0);
+                }, 0)
+            }
+          }
           resultService.setResult('color-picker', vm.gameSets[vm.currentGameSetIndex].name, vm.gameSets[vm.currentGameSetIndex].result);
           vm.currentGameSetIndex++;
           if(vm.currentGameSetIndex < vm.gameSets.length) {
@@ -123,8 +167,8 @@
         $("body").zoomTo({
           targetsize: 1,
           animationendcallback: function() {
-            $state.go('intro', {
-              state:  'second'
+            $state.go('video', {
+              state:  'estrellas'
             });
           }
         });
@@ -161,6 +205,7 @@
       }
 
       function clickButton(item, $index) {
+        soundService.play('button-click');
         var itemSelection = _.find(vm.colorSets, { name: item.colorSet });
         itemSelection.value = itemSelection.target == $index;
       }

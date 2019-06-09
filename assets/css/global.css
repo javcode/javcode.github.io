@@ -3,8 +3,20 @@ body {
   font-family: 'Sniglet', cursive;
 }
 
+.disable-pointer {
+  cursor: pointer;
+}
+
+.audio-container {
+  visibility: hidden;
+}
+
 .inline-block {
   display: inline-block;
+}
+
+.flex {
+  display: flex;
 }
 
 .inline-flex {
@@ -21,7 +33,7 @@ body {
   position: relative;
 }
 
-.video-js {
+.video-container .video-js {
   width: 640px !important;
   height: 320px !important;
 }
@@ -37,6 +49,7 @@ body {
 .video-container .next-state-button {
   margin-bottom: 20px;
   margin-top: 20px;
+  cursor: pointer;
 }
 
 .game-content .tablero-image {
@@ -103,6 +116,7 @@ body {
   padding-top: 20px;
   margin-left: 4px;
   z-index: 1;
+  cursor: pointer;
 }
 
 .tablero-columna-panel:nth-child(2) svg {
@@ -165,12 +179,30 @@ body {
   text-align: center;
 }
 
+.colorpicker-video-container {
+  width: 30%;
+  position: absolute;
+  height: 30%;
+  left: 35%;
+}
+
+.colorpicker-video-container .colorpicker-video-holder {
+  height: 100%;
+}
+
+.colorpicker-video-container .colorpicker-video-holder .color-picker-video-js {
+  height: 200px !important;
+  width: 300px !important; 
+}
+
 /* ====  1st Game color set ==== */
 /* ========  1st color set ======== */
 .game-color-picker-1 .tablero-recuadro svg .st0 {
   fill: #8d9350;
 }
 
+
+.game-color-picker-1 .color-set-1 .result-container,
 .game-color-picker-1 .color-set-1 .tablero-columna-panel-section svg polygon.st0 {
   fill: #b0852b;
 }
@@ -213,7 +245,7 @@ body {
 
 
 /* ======== 2nd color set ========  */
-
+.game-color-picker-1 .color-set-2 .result-container,
 .game-color-picker-1 .color-set-2 .tablero-columna-panel-section svg polygon.st0 {
   fill: #e8ae58;
 }
@@ -231,6 +263,7 @@ body {
 }
 
 /* ======== 3rd color set ======== */
+.game-color-picker-1 .color-set-3 .result-container,
 .game-color-picker-1 .color-set-3 .tablero-columna-panel-section svg polygon.st0 {
   fill: #d5ba7d;
 }
@@ -255,6 +288,7 @@ body {
   fill: #ff9400;
 }
 
+.game-color-picker-2 .color-set-1 .result-container,
 .game-color-picker-2 .color-set-1 .tablero-columna-panel-section svg polygon.st0 {
   fill: #a4ae60;
 }
@@ -272,6 +306,7 @@ body {
 }
 
 /* ======== 2nd color set ========  */
+.game-color-picker-2 .color-set-2 .result-container,
 .game-color-picker-2 .color-set-2 .tablero-columna-panel-section svg polygon.st0 {
   fill: #ff9288;
 }
@@ -289,6 +324,7 @@ body {
 }
 
 /* ======== 3rd color set ======== */
+.game-color-picker-2 .color-set-3 .result-container,
 .game-color-picker-2 .color-set-3 .tablero-columna-panel-section svg polygon.st0 {
   fill: #ed2a1f;
 }
@@ -340,6 +376,7 @@ body {
   fill: #42231f;
 }
 
+.game-color-picker-3 .color-set-1 .result-container,
 .game-color-picker-3 .color-set-1 .tablero-columna-panel-section svg polygon.st0 {
   fill: #a57b74;
 }
@@ -357,6 +394,7 @@ body {
 }
 
 /* ======== 2nd color set ========  */
+.game-color-picker-3 .color-set-2 .result-container,
 .game-color-picker-3 .color-set-2 .tablero-columna-panel-section svg polygon.st0 {
   fill: #7f5152;
 }
@@ -374,6 +412,7 @@ body {
 }
 
 /* ======== 3rd color set ======== */
+.game-color-picker-3 .color-set-3 .result-container,
 .game-color-picker-3 .color-set-3 .tablero-columna-panel-section svg polygon.st0 {
   fill: #a57b74;
 }
@@ -453,7 +492,6 @@ body {
   justify-content: center;
   text-align: center;
   border-radius: 50%;
-  padding: 10px;
 }
 
 .stars-instructions .star-bar-message {
@@ -463,7 +501,6 @@ body {
   align-self: center;
   text-align: left;
   padding-left: 30px;
-  padding-right: 30px;
   margin: 0;
 }
 
@@ -476,7 +513,8 @@ body {
   border-bottom: 20px solid transparent;
   
   border-left: 20px solid #E6B54A;
-  margin: 20px;
+  margin-left: 20px;
+  margin-top: 20px;
 }
 
 .stargame-element {
@@ -494,6 +532,7 @@ body {
 .star-div .star svg {
   width: 60px;
   height: 60px;
+  cursor: pointer;
 }
 
 .tablero-instrucciones-juego-stars {
@@ -526,11 +565,11 @@ body {
 /* star-colors-1 */
 
 .star-colors-1 .star-color-set-1 svg path.st0 {
-  fill: #e3526f;
+  fill: #8b5051;
 }
 
 .star-colors-1 .star-color-set-2 svg path.st0 {
-  fill: #8b5051;
+  fill: #e3526f;
 }
 
 .star-colors-1 .star-color-set-3 svg path.st0 {
@@ -552,11 +591,11 @@ body {
 /* star-colors-2 */
 
 .star-colors-2 .star-color-set-1 svg path.st0 {
-  fill: #5d9750;
+  fill: #ee8b25;
 }
 
 .star-colors-2 .star-color-set-2 svg path.st0 {
-  fill: #ee8b25;
+  fill: #5d9750;
 }
 
 .star-colors-2 .star-color-set-3 svg path.st0 {
@@ -587,7 +626,7 @@ body {
 }
 
 .star-colors-3 .star-color-set-2 svg path.st0 {
-  fill: #8d9350;
+  fill: #5d9750;
 }
 
 .star-colors-3 .star-color-set-3 svg path.st0 {
@@ -599,7 +638,7 @@ body {
 }
 
 .star-colors-3 .star-color-set-5 svg path.st0 {
-  fill: #5d9750;
+  fill: #8d9350;
 }
 
 .star-colors-3 .circle.star-color-set-1 {
@@ -658,6 +697,7 @@ body {
 .alien-grid .alien-circle {
   position: relative;
   text-align: center;
+  cursor: pointer;
 }
 
 
@@ -733,4 +773,61 @@ body {
 
 .alien-grid .alien-circle .alien.alien-color-set-6 .alien-svg-container svg .st1 {
   fill: #e76336;
+}
+
+/* Menu page */
+.menu-container {
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  flex-direction: column;
+}
+
+.result-color-picker-section {
+  position: relative;
+}
+
+.result-color-picker-section svg {
+  width: 40px;
+  position: relative;
+}
+
+.color-picker-results-details-panel {
+  justify-content: space-evenly;
+}
+
+.color-picker-result-icon {
+  position: absolute;
+  left: 10px;
+}
+
+.color-picker-result-icon:nth-child(2) {
+  top: 20px;
+}
+
+.color-picker-result-icon:nth-child(3) {
+  top: 40px;
+}
+
+.color-picker-result-icon:nth-child(4) {
+  top: 60px;
+}
+
+.color-picker-result-icon.icon-target::before {
+  border: 1px solid blueviolet;
+  border-radius: 50%;
+}
+
+.color-picker-result-icon.icon-match {
+  border: 3px solid greenyellow;
+  border-radius: 50%;
+}
+
+.mini-star-container .star svg {
+  width: 30px !important;
 }

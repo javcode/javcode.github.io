@@ -1,10 +1,5 @@
 <div class="tablero">
   <img class="tablero-fondo" ng-class="{'grayscale': vm.enableColorPickerGame}" src="/assets/img/tablero_nave.png" width="100%" style="object-fit:cover;"/>
-  <!--div class="color-picker-messages">
-    <div class="color-picker-message">
-      {{vm.statusBar.currentMessage}}
-    </div>
-  </div-->
   <div class="tablero-panel {{vm.currentGameSet.name}}">
     <div class="tablero-reloj-panel">
       <ng-include class="tablero-reloj" src="'/assets/img/reloj-tablero.svg'"/>
@@ -12,7 +7,7 @@
       <ng-include class="tablero-reloj" src="'/assets/img/reloj-tablero.svg'"/>
     </div>
     <ng-include class="tablero-recuadro" src="'/assets/img/panel-recuadro.svg'"/>
-    <div class="tablero-columnas">
+    <div class="tablero-columnas" ng-class="{'disable-pointer': !vm.enableColorPickerGame }" ng-show="vm.enableColorPickerGame">
       <div class="tablero-columna-panel relative {{item.colorSet}}" ng-repeat="item in vm.buttonsList">
         <ng-include class="tablero-columna-panel-section" src="'/assets/img/panel-wrapper-' + ($index + 1) + '.svg'" />
         <div ng-repeat="button in item.buttons" class="icon icon-{{button}}" ng-click="vm.clickButton(item, $index)"/>
@@ -28,6 +23,6 @@
   <div class="tablero-instrucciones-juego">
     Presiona los triangulos
     <div class="tablero-instrucciones-juego-figura icon icon-triangle"></div>
-    en el panel izquierdo
+    que ves en el panel
   </div>
 </div>

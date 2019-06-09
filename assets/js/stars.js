@@ -1,13 +1,13 @@
 (function () {
   'use strict';
   angular.module('app')
-    .controller('starsSpottingController', function ($scope, $state, $q, $timeout, resultService) {
+    .controller('starsSpottingController', function ($scope, $state, $q, $timeout, resultService, soundService) {
       var vm = this;
 
       var flexVerticalPositions = ['center', 'flex-end', 'end'];
       var flexHorizontalPositions = ['center', 'flex-end', 'flex-start'];
       
-      vm.gameTime = 10;
+      vm.gameTime = 5;
       vm.gameStartDelay = 3000;
       vm.timeLeft = vm.gameTime;
       vm.grid = {
@@ -87,8 +87,10 @@
       vm.currentColorSet = vm.colorSets[vm.currentColorSetIndex]
 
       vm.starClick = starClick;
+      vm.enableGame = false;
 
       function init() {
+        vm.enableGame = false;
         generateRandomRotationStyles();
         var colorSetDistribution = generateRandomColorSets();
         var grid = document.querySelector('.stars-grid');
@@ -109,8 +111,8 @@
           'star-color-set-1': 0,
           'star-color-set-2': 0,
           'star-color-set-3': 0,
-          'star-color-set-4': 0,
-          'star-color-set-5': 0
+          'match': vm.colorConfigurations[vm.currentColorSetIndex].match,
+          'expected': vm.colorConfigurations[vm.currentColorSetIndex].stars[vm.colorConfigurations[vm.currentColorSetIndex].match]
         };
         setTimeout(startGame, vm.gameStartDelay);
       }
@@ -178,12 +180,15 @@
       }
 
       function startGame() {
+        vm.enableGame = true;
         vm.gameInterval = setInterval(function() {
           if(vm.timeLeft <= 0) {
             if(vm.currentColorSetIndex < 2) {
               finishColorSet();
+              vm.enableGame = false;
             } else {
-              finishGame()
+              finishGame();
+              vm.enableGame = false;
             }
           } else {
             setStatusBarTimeLeft(vm.timeLeft);
@@ -210,8 +215,8 @@
         setStatusBarMessage(vm.finishMessage);
         resultService.setResult('stars-game', vm.currentColorSet, _.cloneDeep(vm.colorConfigurations[vm.currentColorSetIndex].result));
         setTimeout(function() {
-          $state.go('intro', {
-            state: 'third'
+          $state.go('video', {
+            state: 'extraterrestres'
           });
         }, 5000);
       }
@@ -229,6 +234,7 @@
       }
 
       function starClick(starItem) {
+        soundService.play('button-click');
         if(!starItem.alreadyClicked) {
           vm.colorConfigurations[vm.currentColorSetIndex].result[starItem.colorClass]++;
           if(!vm.colorConfigurations[vm.currentColorSetIndex].result.matches) {

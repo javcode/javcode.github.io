@@ -1,9 +1,9 @@
 <div class="text-center video-container">
   <div class="video-holder"></div>
-  <div class="next-state-button">
+  <div class="next-state-button" ng-if="!vm.autoStart">
     <a  href="javascript:void(0)" ng-click="vm.start()">
       <img src="/assets/img/play.svg" width="100"/>
-      <h4>Comenzar</h4>
+      <h4 ng-if="vm.playMessage">{{vm.playMessage}}</h4>
     </a>
   </div>
 </div>

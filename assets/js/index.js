@@ -8,8 +8,8 @@
     var vm = this;
 
     $scope.$on('$viewContentLoaded', function(){
-      $state.go('intro', {
-        state:  'first'
+      $state.go('video', {
+        state:  'presentacion'
       })
     });
   }

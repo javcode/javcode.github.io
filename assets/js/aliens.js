@@ -2,9 +2,9 @@
   'use strict';
   angular.module('app').controller('aliensController', aliensController);
 
-  aliensController.$inject = ['$scope', '$state', 'resultService'];
+  aliensController.$inject = ['$scope', '$state', 'resultService', 'soundService'];
   
-  function aliensController ($scope, $state, resultService) {
+  function aliensController ($scope, $state, resultService, soundService) {
     var vm = this;
 
     vm.gameTime = 10;
@@ -262,12 +262,14 @@
       currentMessage: vm.instructionsMessage,
       timeLeft: '00:10'
     }
+    vm.enableGame;
 
     $scope.$on('$viewContentLoaded', function(){
       init();
     });
 
     function init() {
+      vm.enableGame = false;
       vm.currentColorSet = vm.colorSets[vm.currentColorSetIndex];
       var grid = document.querySelector('.alien-grid');
       var gridWidth = grid.clientWidth;
@@ -309,11 +311,14 @@
 
 
     function startGame() {
+      vm.enableGame = true;
       vm.gameInterval = setInterval(function() {
         if(vm.timeLeft <= 0) {
           if(vm.currentColorSetIndex < 2) {
+            vm.enableGame = false;
             finishColorSet();
           } else {
+            vm.enableGame = false;
             finishGame()
           }
         } else {
@@ -345,8 +350,9 @@
         return sum + (n.match ? n.repeat || 1 : 0)
       }, 0);
       resultService.setResult('aliens', vm.colorSets[vm.currentColorSetIndex].name, _.cloneDeep(vm.colorSets[vm.currentColorSetIndex].result));
+      resultService.finishGame();
       setTimeout(function() {
-        $state.go('intro', {
+        $state.go('video', {
           state: 'finish'
         });
       }, 3000);
@@ -365,6 +371,7 @@
     }
 
     function circleClick(circle) {
+      soundService.play('button-click');
       if(!circle.alreadyClicked) {
         var match = circle.isAlien;
         vm.colorSets[vm.currentColorSetIndex].result.matches = vm.colorSets[vm.currentColorSetIndex].result.matches || 0;

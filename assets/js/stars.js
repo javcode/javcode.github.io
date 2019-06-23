@@ -3,9 +3,6 @@
   angular.module('app')
     .controller('starsSpottingController', function ($scope, $state, $q, $timeout, resultService, soundService) {
       var vm = this;
-
-      var flexVerticalPositions = ['center', 'flex-end', 'end'];
-      var flexHorizontalPositions = ['center', 'flex-end', 'flex-start'];
       
       vm.gameTime = 5;
       vm.gameStartDelay = 3000;
@@ -20,15 +17,22 @@
         items: []
       }
 
-      vm.instructionsMessage = 'Presiona las estrellas de este color';
+      vm.instructionsMessage = 'Presiona los cuadros que contengan estrellas';
       vm.finishMessage = 'Bien hecho!';
 
       vm.statusBar = {
-        currentMessage: vm.instructionsMessage,
-        timeLeft: '00:10'
+        currentMessage: vm.instructionsMessage
       }
       vm.currentColorSetIndex = 0;
       vm.rightColorSetClass = 'star-color-set-2';
+
+      vm.starsConfiguration = {
+        noStars: [1,2,3],
+        stars: [4,5,6,7,8,9]
+      }
+
+      vm.starsQueueCurrentIndex = 0;
+      vm.starsQueue = [];
 
       vm.colorConfigurations = [
         {
@@ -86,11 +90,12 @@
 
       vm.currentColorSet = vm.colorSets[vm.currentColorSetIndex]
 
-      vm.starClick = starClick;
+      vm.decisionClick = decisionClick;
       vm.enableGame = false;
 
       function init() {
         vm.enableGame = false;
+        /*
         generateRandomRotationStyles();
         var colorSetDistribution = generateRandomColorSets();
         var grid = document.querySelector('.stars-grid');
@@ -114,111 +119,44 @@
           'match': vm.colorConfigurations[vm.currentColorSetIndex].match,
           'expected': vm.colorConfigurations[vm.currentColorSetIndex].stars[vm.colorConfigurations[vm.currentColorSetIndex].match]
         };
+        */
+        vm.results={
+          stars: {
+            success: [],
+            missed: []
+          },
+          noStars: {
+            success: [],
+            missed: []
+          },
+        };
+        generateRandomStars();
         setTimeout(startGame, vm.gameStartDelay);
       }
 
 
       init();
 
-      function generateRandomColorSets() {
-        var circles = [];
-        _.each(_.keys(vm.colorConfigurations[vm.currentColorSetIndex].circles), function(colorSetKey) {
-          var nTimes = vm.colorConfigurations[vm.currentColorSetIndex].circles[colorSetKey];
-          for(var i = 0; i < nTimes; i++) {
-            circles.push(colorSetKey);
-          }
-        });
-        
-        var stars = [];
-        _.each(_.keys(vm.colorConfigurations[vm.currentColorSetIndex].stars), function(colorSetKey) {
-          var nTimes = vm.colorConfigurations[vm.currentColorSetIndex].stars[colorSetKey];
-          for(var i = 0; i < nTimes; i++) {
-            stars.push(colorSetKey);
-          }
-        });
-
-        return {
-          circle: _.shuffle(circles),
-          star: _.shuffle(stars)
-        }
-      }
-
-      function generate(itemList, divWidth, divHeight, colorSetDistribution) {
-        for(var i = 0; i < itemList.length; i++) {
-          var item = itemList[i];
-          var newItem = {
-            type: item,
-            colorSetClass: vm.colorSets[vm.currentColorSetIndex],
-            colorClass: item == 'empty' ? '' : colorSetDistribution[item].pop(),
-            style: {
-              'width': divWidth  + 'px',
-              'height': (item == 'circle' ? 15 : divHeight) + 'px',
-              'align-self': _.sample(flexVerticalPositions),
-              'justify-content': _.sample(flexHorizontalPositions),
-            }
-          }
-          if(newItem.type == 'star') {
-            newItem.rotation = randomRotationStyle();
-          }
-          vm.grid.items.push(newItem);
-        }
-      }
-
-      function generateRandomRotationStyles() {
-        vm.rotationStyles = [];
-        for(var i = 0; i < 15; i++) {
-          vm.rotationStyles.push({
-            'transform': 'rotate( ' + Math.floor(Math.random() * Math.floor(270)) + 'deg)',
-            'transform-origin': '30px 30px'
-          })
-        }
-      }
-
-      function randomRotationStyle() {
-        var rotationIndex = Math.floor(Math.random() * Math.floor(vm.rotationStyles.length - 1));
-        return vm.rotationStyles[rotationIndex];
+      function generateRandomStars() {
+        vm.starsQueue = _.shuffle(_.concat(vm.starsConfiguration.noStars, vm.starsConfiguration.stars));
       }
 
       function startGame() {
-        vm.enableGame = true;
-        vm.gameInterval = setInterval(function() {
-          if(vm.timeLeft <= 0) {
-            if(vm.currentColorSetIndex < 2) {
-              finishColorSet();
-              vm.enableGame = false;
-            } else {
-              finishGame();
-              vm.enableGame = false;
-            }
-          } else {
-            setStatusBarTimeLeft(vm.timeLeft);
-          }
-          vm.timeLeft--;
-        }, 1000);
-      }
-
-      function finishColorSet() {
-        clearInterval(vm.gameInterval);
-        setStatusBarTimeLeft(0);
-        setStatusBarMessage(vm.instructionsMessage);
-        resultService.setResult('stars-game', vm.currentColorSet, _.cloneDeep(vm.colorConfigurations[vm.currentColorSetIndex].result));
-        vm.currentColorSetIndex++;
-        vm.currentColorSet = vm.colorSets[vm.currentColorSetIndex]
-        vm.grid.items = [];
-        init();
-        vm.timeLeft = vm.gameTime;
+        $scope.$apply(function(){
+          vm.enableGame = true;
+        });
       }
 
       function finishGame() {
-        clearInterval(vm.gameInterval);
+        vm.enableGame = false;
         setStatusBarTimeLeft(0);
         setStatusBarMessage(vm.finishMessage);
-        resultService.setResult('stars-game', vm.currentColorSet, _.cloneDeep(vm.colorConfigurations[vm.currentColorSetIndex].result));
+        resultService.setResult('stars-select-game', 'all', vm.results);
         setTimeout(function() {
           $state.go('video', {
             state: 'extraterrestres'
           });
-        }, 5000);
+        }, 3000);
       }
 
       function setStatusBarMessage(newMessage) {
@@ -233,23 +171,29 @@
         });
       }
 
-      function starClick(starItem) {
+      function decisionClick(decisionIsYes) {
         soundService.play('button-click');
-        if(!starItem.alreadyClicked) {
-          vm.colorConfigurations[vm.currentColorSetIndex].result[starItem.colorClass]++;
-          if(!vm.colorConfigurations[vm.currentColorSetIndex].result.matches) {
-            vm.colorConfigurations[vm.currentColorSetIndex].result.matches = 0
-          }
-          if(!vm.colorConfigurations[vm.currentColorSetIndex].result.misses) {
-            vm.colorConfigurations[vm.currentColorSetIndex].result.misses = 0
-          }
-          if(starItem.colorClass == vm.colorConfigurations[vm.currentColorSetIndex].match) {
-            vm.colorConfigurations[vm.currentColorSetIndex].result.matches++;
+        var currentItem = vm.starsQueue[vm.starsQueueCurrentIndex];
+        var currentIsStar = vm.starsConfiguration.stars.includes(currentItem);
+        if(decisionIsYes) {
+          if(currentIsStar) {
+            vm.results.stars.success.push(currentItem);
           } else {
-            vm.colorConfigurations[vm.currentColorSetIndex].result.misses++;
+            vm.results.noStars.missed.push(currentItem);
+          }
+
+        } else {
+          if(currentIsStar) {
+            vm.results.stars.missed.push(currentItem);
+          } else {
+            vm.results.noStars.success.push(currentItem);
           }
         }
-        starItem.alreadyClicked = true;
+        if(vm.starsQueueCurrentIndex < (vm.starsQueue.length - 1)) {
+          vm.starsQueueCurrentIndex++;
+        } else {
+          finishGame();
+        }
       }
     });
 })();

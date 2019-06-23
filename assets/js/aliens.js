@@ -14,7 +14,7 @@
 
     vm.instructionsMessage = 'Presiona los circulos que contienen extra-terrestres'
 
-    vm.currentColorSetIndex = 0;
+    vm.currentColorSetIndex = 2;
     vm.colorSets = [
       {
         name: 'color-set-1',
@@ -23,6 +23,7 @@
           y: 3
           //15
         },
+        time: 10,
         result: { 
           name: 'color-set-1',
           aliens: {}, 
@@ -31,61 +32,42 @@
         },
         circles: [
           {
-            circle: 'circle-color-set-1',
-            repeat: 2
-          },
-          {
-            circle: 'circle-color-set-2',
-            alien: 'alien-color-set-1', //rosa
+            circle: 'circle-color-set-1', //amarelo
+            alien: 'alien-color-set-1', //rojo
             match: true
           },
           {
-            circle: 'circle-color-set-3',
-          },
-          {
-            circle: 'circle-color-set-4',
-          },
-          {
-            circle: 'circle-color-set-5',
+            circle: 'circle-color-set-2', //violeta
             alien: 'alien-color-set-2', //amarillo
             match: true
           },
           {
-            circle: 'circle-color-set-4',
-            alien: 'alien-color-set-1', //rosa
+            circle: 'circle-color-set-1',//amarelo
+            alien: 'alien-color-set-3', //piel
             match: true
           },
           {
-            circle: 'circle-color-set-6',
-            alien: 'alien-color-set-3', // piel
+            circle: 'circle-color-set-3', // marron oscruro
+            alien: 'alien-color-set-1', // rojo
             match: true
           },
           {
-            circle: 'circle-color-set-7'
-          },
-          {
-            circle: 'circle-color-set-8',
-            alien: 'alien-color-set-4', // violeta
+            circle: 'circle-color-set-2', //violeta
+            alien: 'alien-color-set-4', // azul
             match: true
           },
           {
-            circle: 'circle-color-set-6',
-          },
-          {
-            circle: 'circle-color-set-8',
-            alien: 'alien-color-set-5', // verde
+            circle: 'circle-color-set-3', // marron oscruro
+            alien: 'alien-color-set-2', // amarillo
             match: true
-          },
-          {
-            circle: 'circle-color-set-5'
           },
           {
             circle: 'circle-color-set-2',
+            repeat: 4
           },
           {
-            circle: 'circle-color-set-3',
-            alien: 'alien-color-set-6', // naranja
-            match: true
+            circle: 'circle-color-set-1',
+            repeat: 5
           }
         ]
       },{
@@ -95,81 +77,58 @@
           y: 4
           //24
         },
+        time: 10,
         result: { 
           name: 'color-set-2',
           aliens: {}, 
           circles: {}
         },
         circles: [
+           {
+            circle: 'circle-color-set-1', //amarelo
+            alien: 'alien-color-set-1', //rojo
+            match: true,
+            repeat: 2
+          },
+          {
+            circle: 'circle-color-set-2', //violeta
+            alien: 'alien-color-set-2', //amarillo
+            match: true
+          },
+          {
+            circle: 'circle-color-set-1',//amarelo
+            alien: 'alien-color-set-3', //piel
+            match: true,
+            repeat: 2
+          },
+          {
+            circle: 'circle-color-set-3', // marron oscruro
+            alien: 'alien-color-set-1', // rojo
+            match: true
+          },
+          {
+            circle: 'circle-color-set-2', //violeta
+            alien: 'alien-color-set-4', // azul
+            match: true,
+            repeat: 2
+          },
+          {
+            circle: 'circle-color-set-3', // marron oscruro
+            alien: 'alien-color-set-2', // amarillo
+            match: true
+          },
+          {
+            circle: 'circle-color-set-2',
+            repeat: 3
+          },
           {
             circle: 'circle-color-set-1',
-            repeat: 2
-          },
-          {
-            circle: 'circle-color-set-2',
-            alien: 'alien-color-set-1', //rosa
-            match: true
-          },
-          {
-            circle: 'circle-color-set-3',
-            repeat: 2
-          },
-          {
-            circle: 'circle-color-set-4',
-          },
-          {
-            circle: 'circle-color-set-5',
-            alien: 'alien-color-set-2', //amarillo
-            match: true,
-            repeat: 2
-          },
-          {
-            circle: 'circle-color-set-4',
-            alien: 'alien-color-set-1', //rosa
-            match: true,
-            repeat: 2
-          },
-          {
-            circle: 'circle-color-set-6',
-            alien: 'alien-color-set-3', // piel
-            repeat: 2,
-            match: true
-          },
-          {
-            circle: 'circle-color-set-7',
-            repeat: 2
-          },
-          {
-            circle: 'circle-color-set-8',
-            alien: 'alien-color-set-4', // violeta
-            match: true,
-            repeat: 2
-          },
-          {
-            circle: 'circle-color-set-6',
-            repeat: 2
-          },
-          {
-            circle: 'circle-color-set-8',
-            alien: 'alien-color-set-5', // verde
-            match: true
-          },
-          {
-            circle: 'circle-color-set-5',
-            repeat: 2
-          },
-          {
-            circle: 'circle-color-set-2',
-          },
-          {
-            circle: 'circle-color-set-3',
-            alien: 'alien-color-set-6', // naranja
-            repeat: 2,
-            match: true
+            repeat: 6
           }
         ]
       },{
         name: 'color-set-3',
+        time: 15,
         grid: {
           x: 8,
           y: 5
@@ -184,74 +143,48 @@
         },
         circles: [
           {
-            circle: 'circle-color-set-1',
-            repeat: 3
-          },
-          {
-            circle: 'circle-color-set-2',
-            alien: 'alien-color-set-1', //rosa
+            circle: 'circle-color-set-1', //amarelo
+            alien: 'alien-color-set-1', //rojo
             match: true,
             repeat: 3
           },
           {
-            circle: 'circle-color-set-3',
-            repeat: 3
-          },
-          {
-            circle: 'circle-color-set-4',
-            repeat: 2
-          },
-          {
-            circle: 'circle-color-set-5',
+            circle: 'circle-color-set-2', //violeta
             alien: 'alien-color-set-2', //amarillo
             match: true,
-            repeat: 4
-          },
-          {
-            circle: 'circle-color-set-4',
-            alien: 'alien-color-set-1', //rosa
-            match: true,
-            repeat: 4
-          },
-          {
-            circle: 'circle-color-set-6',
-            alien: 'alien-color-set-3', // piel
-            repeat: 2,
-            match: true
-          },
-          {
-            circle: 'circle-color-set-7',
             repeat: 3
           },
           {
-            circle: 'circle-color-set-8',
-            alien: 'alien-color-set-4', // violeta
+            circle: 'circle-color-set-1',//amarelo
+            alien: 'alien-color-set-3', //piel
             match: true,
             repeat: 3
           },
           {
-            circle: 'circle-color-set-6',
+            circle: 'circle-color-set-3', // marron oscruro
+            alien: 'alien-color-set-1', // rojo
+            match: true,
+            repeat: 4
+          },
+          {
+            circle: 'circle-color-set-2', //violeta
+            alien: 'alien-color-set-4', // azul
+            match: true,
             repeat: 3
           },
           {
-            circle: 'circle-color-set-8',
-            alien: 'alien-color-set-5', // verde
-            repeat: 2,
-            match: true
-          },
-          {
-            circle: 'circle-color-set-5',
-            repeat: 3
+            circle: 'circle-color-set-3', // marron oscruro
+            alien: 'alien-color-set-2', // amarillo
+            match: true,
+            repeat: 4
           },
           {
             circle: 'circle-color-set-2',
-            repeat: 2
+            repeat: 10
           },
           {
-            circle: 'circle-color-set-3',
-            alien: 'alien-color-set-6', // naranja
-            repeat: 3,
-            match: true
+            circle: 'circle-color-set-1',
+            repeat: 10
           }
         ]
       }
@@ -311,7 +244,10 @@
 
 
     function startGame() {
-      vm.enableGame = true;
+      $scope.$apply(function() {
+        vm.enableGame = true;
+      })
+      /*
       vm.gameInterval = setInterval(function() {
         if(vm.timeLeft <= 0) {
           if(vm.currentColorSetIndex < 2) {
@@ -326,6 +262,7 @@
         }
         vm.timeLeft--;
       }, 1000);
+      */
     }
 
     function finishColorSet() {
@@ -339,7 +276,7 @@
       vm.currentColorSetIndex++;
       vm.grid = [];
       init();
-      vm.timeLeft = vm.gameTime;
+      vm.timeLeft = vm.colorSets[vm.currentColorSetIndex].time;
     }
 
     function finishGame() {

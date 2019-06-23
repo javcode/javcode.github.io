@@ -21,6 +21,7 @@
     <script src="/assets/js/app.js"></script>
     <script src="/assets/js/result.service.js"></script>
     <script src="/assets/js/sound.service.js"></script>
+    <script src="/assets/js/main.js"></script>
     <script src="/assets/js/index.js"></script>
     <script src="/assets/js/results.js"></script>
     <script src="/assets/js/aliens.js"></script>
@@ -30,7 +31,7 @@
 
   </head>
 
-  <body ng-app="app">
+  <body ng-app="app" ng-controller="mainController">
     <div class="game-content">
       <img class="tablero-image" src="/assets/img/tablero_nave_fondo.png" width="100%"/>
       <ui-view></ui-view>
@@ -38,6 +39,12 @@
     <div class="audio-container">
       <audio id="button-click">
         <source src="/assets/sound/click.mp3" type="audio/mp3">
+      </audio>
+      <audio id="wait-music">
+        <source src="/assets/sound/tiempo_espera.mp3" type="audio/mp3">
+      </audio>
+      <audio id="game-music">
+        <source src="/assets/sound/tiempo_juego.mp3" type="audio/mp3">
       </audio>
     </div>
   </body>

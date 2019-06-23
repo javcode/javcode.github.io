@@ -12,6 +12,12 @@
       vm.soundLibrary = {
         'button-click': {
           playing: false
+        },
+        'game-music': {
+          playing: false
+        },
+        'wait-music': {
+          playing: false
         }
       }
 

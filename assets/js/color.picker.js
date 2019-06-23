@@ -12,9 +12,8 @@
       vm.enableColorPickerGame = false; // Enable after playing instructions
       vm.buttonsList = [];
       vm.buttonTypes = [
-        'square',
-        'circle',
-        'triangle'
+        'circulo',
+        'triangulo'
       ];
       vm.gameSets = [
         {
@@ -57,19 +56,16 @@
         {
           name: 'color-set-1',
           shift: 0,
-          target: 2,
           value: -1
         },
         {
           name: 'color-set-2',
           shift: 1,
-          target: 0,
           value: -1
         },
         {
           name: 'color-set-3',
-          shift: 2,
-          target: 1,
+          shift: 0,
           value: -1
         }
       ];
@@ -97,8 +93,8 @@
 
         $timeout(function() {
           deferred.resolve(true);
-        }, 4000);
-
+        }, 2000);
+        
         return deferred.promise;
       }
 
@@ -112,10 +108,11 @@
         vm.enableColorPickerGame = true;
         setTimeout(function() {
           if(zoomToPanel) {
-            $('.tablero-columnas .tablero-columna-panel:nth-child(3) .icon:nth-child(3)').zoomTo({targetsize:0.12});
+            $('.tablero-columnas .tablero-columna-panel:nth-child(3) .tablero-boton').zoomTo({targetsize:0.13});
           }
         });
         vm.timeLeft = vm.gameTime;
+        
         vm.timer = setInterval(function() {
           setStatusBarMessage("00:" + (vm.timeLeft > 9 ? '':'0') + vm.timeLeft);
           vm.timeLeft--;
@@ -155,6 +152,7 @@
           if(vm.currentGameSetIndex < vm.gameSets.length) {
             setStatusBarMessage(vm.interGameMessage);
             vm.currentGameSet = vm.gameSets[vm.currentGameSetIndex];
+            createButtonColumns();
             startColorPickerGame();
           } else {
             gameFinished();
@@ -183,10 +181,13 @@
 
       function createButtonColumns() {
         var result = [];
-        _.each(vm.colorSets, function(colorSet) {
+        _.each(vm.colorSets, function(colorSet, index) {
+          var randomShift = (Math.floor(Math.random() * 10 + 1)) > 5 ? 1 : 0;
           var colorSetButtons = {
             colorSet: colorSet.name,
-            buttons: createButtonColumn(colorSet.shift)
+            buttons: createButtonColumn(randomShift),
+            shift: randomShift + 1,
+            columnWrapper: "/assets/img/panel-circle-wrapper-" + (index + 1) + '-' + (randomShift + 1) + ".svg"
           };
           result.push(colorSetButtons);
         })
@@ -204,10 +205,10 @@
         return buttons;
       }
 
-      function clickButton(item, $index) {
+      function clickButton(item, button) {
         soundService.play('button-click');
         var itemSelection = _.find(vm.colorSets, { name: item.colorSet });
-        itemSelection.value = itemSelection.target == $index;
+        itemSelection.value = button == 'triangulo';
       }
 
     };

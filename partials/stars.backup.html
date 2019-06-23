@@ -1,0 +1,32 @@
+<div class="stars-background">
+  <div class="stars-instructions">
+    <div class="star-bar-message">
+      <div class="inline-flex tablero-reloj-juego-stars">
+        <ng-include class="reloj" src="'/assets/img/reloj.svg'"/>
+        <div class="star-game-timer">
+          {{vm.statusBar.timeLeft}}
+        </div>
+      </div>
+      <div class="arrow-right pull-right"></div>
+      <div class="tablero-instrucciones-juego-stars pull-right">
+        {{vm.statusBar.currentMessage}}
+      </div>
+    </div>
+    <div class="star-tip">
+      <div class="star-div {{vm.colorConfigurations[vm.currentColorSetIndex].name}}">
+        <div class="star star-color-set-2">
+          <ng-include src="'/assets/img/estrella.svg'"/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="stars-grid" ng-show="vm.enableGame">
+    <div class="star-div {{item.colorSetClass}}" ng-repeat="item in vm.grid.items" ng-style="item.style">
+      <div class="star {{item.colorClass}}" ng-if="item.type == 'star'" ng-click="vm.starClick(item)" ng-style="item.rotation">
+        <ng-include src="'/assets/img/estrella.svg'"/>
+      </div>
+      <div class="circle {{item.colorClass}}" ng-if="item.type == 'circle'"></div>
+      <div ng-if="item.type == 'empty'">&nbsp;</div>
+    </div>
+  </div>
+</div>

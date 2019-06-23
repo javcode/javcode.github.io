@@ -1,32 +1,24 @@
 <div class="stars-background">
-  <div class="stars-instructions">
-    <div class="star-bar-message">
-      <div class="inline-flex tablero-reloj-juego-stars">
-        <ng-include class="reloj" src="'/assets/img/reloj.svg'"/>
-        <div class="star-game-timer">
-          {{vm.statusBar.timeLeft}}
-        </div>
-      </div>
-      <div class="arrow-right pull-right"></div>
-      <div class="tablero-instrucciones-juego-stars pull-right">
-        {{vm.statusBar.currentMessage}}
-      </div>
+  <img class="stars-background-image" src="/assets/img/stars/stars-background.png">
+  <div class="stars-game" ng-if="vm.enableGame">
+    <div class="stars-game-panel">
+      <ng-include src="'/assets/img/stars/imagen_estrella_' + vm.starsQueue[vm.starsQueueCurrentIndex] + '.svg'"/>
     </div>
-    <div class="star-tip">
-      <div class="star-div {{vm.colorConfigurations[vm.currentColorSetIndex].name}}">
-        <div class="star star-color-set-2">
-          <ng-include src="'/assets/img/estrella.svg'"/>
-        </div>
+    <div class="stars-game-panel-action">
+      <div class="star-decision-text">Ves una estrella?</div>
+      <br/>
+      <div class="star-game-decision-panel">
+        <a href="javascript:void(0)" class="star-game-decision-button star-game-decision-block" ng-click="vm.decisionClick(true)">Si</a>
+        <div style="width: 14%;">&nbsp;</div>
+        <a href="javascript:void(0)" class="star-game-decision-button star-game-decision-block" ng-click="vm.decisionClick(false)">No</a>
       </div>
     </div>
   </div>
-  <div class="stars-grid" ng-show="vm.enableGame">
-    <div class="star-div {{item.colorSetClass}}" ng-repeat="item in vm.grid.items" ng-style="item.style">
-      <div class="star {{item.colorClass}}" ng-if="item.type == 'star'" ng-click="vm.starClick(item)" ng-style="item.rotation">
-        <ng-include src="'/assets/img/estrella.svg'"/>
+  <div class="stars-game" ng-if="!vm.enableGame">
+    <div class="stars-game-instructions-panel">
+      <div class="stars-game-instructions-text">
+        {{vm.statusBar.currentMessage}}
       </div>
-      <div class="circle {{item.colorClass}}" ng-if="item.type == 'circle'"></div>
-      <div ng-if="item.type == 'empty'">&nbsp;</div>
     </div>
   </div>
 </div>

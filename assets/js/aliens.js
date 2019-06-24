@@ -147,7 +147,7 @@
         ]
       },{
         name: 'color-set-3',
-        time: 20,
+        time: 25,
         grid: {
           x: 8,
           y: 5

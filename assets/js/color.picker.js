@@ -32,22 +32,23 @@
 
       vm.colorBlindDetermination = {
         'game-color-picker-1': {
-          'deutan': [
-            'color-set-1',
-            'color-set-2',
-            'color-set-3'
-          ]
+          'protan': {
+            'color-set-1': ['triangulo', 'circulo'],
+            total: 2
+          }
         },
         'game-color-picker-2': {
-          'deutan': [
-            'color-set-1'
-          ]
+          'deutan': {
+            'color-set-3': ['triangulo'],
+            total: 1
+          }
         },
         'game-color-picker-3': {
-          'protan': [
-            'color-set-1',
-            'color-set-3'
-          ]
+          'deutan': {
+            'color-set-2': ['circulo'],
+            'color-set-3': ['circulo', 'triangulo'],
+            total: 3
+          }
         }
       }
 
@@ -118,6 +119,7 @@
           vm.timeLeft--;
           checkIfGameIsFinished();
         }, 1000);
+        
       }
 
       function checkIfGameIsFinished() {
@@ -128,23 +130,59 @@
             clicks: _.cloneDeep(vm.colorSets)
           }
           _.each(vm.colorSets, function(colorSet) {
-            delete colorSet.value;
+            colorSet.value = -1;
           })
           var colorBlindDetermination = vm.colorBlindDetermination[vm.gameSets[vm.currentGameSetIndex].name];
           if(colorBlindDetermination.deutan) {
             vm.gameSets[vm.currentGameSetIndex].result.deutan = {
-              total: colorBlindDetermination.deutan.length,
-              hits: _.reduce(vm.gameSets[vm.currentGameSetIndex].result, function(sum,n) {
-                  return sum + (n.value == true && colorBlindDetermination.deutan.includes(n.name) ? 1 : 0);
-                }, 0)
+              total: colorBlindDetermination.deutan.total,
+              hits: _.reduce(vm.gameSets[vm.currentGameSetIndex].result.clicks, function(sum,n) {
+                var deutanMatch = colorBlindDetermination.deutan[n.name];
+                if(deutanMatch) {
+                  if(deutanMatch.length == 2) {
+                    if(n.value == -1) {
+                      return sum + 1;
+                    } else {
+                      return sum + (n.value == true ? -2 : 2)
+                    }
+                  }  else {
+                    var buttonType = n.value == true ? 'triangulo' : 'circulo';
+                    if(n.value == -1 || deutanMatch.includes(buttonType)) {
+                      return sum + (n.value == true ? -1 : 1)
+                    } else {
+                      return sum;
+                    }
+                  }
+                } else {
+                  return sum;
+                }
+              }, 0)
             }
           }
           if(colorBlindDetermination.protan) {
             vm.gameSets[vm.currentGameSetIndex].result.protan = {
-              total: colorBlindDetermination.protan.length,
-              hits: _.reduce(vm.gameSets[vm.currentGameSetIndex].result, function(sum,n) {
-                  return sum + (n.value == true && colorBlindDetermination.protan.includes(n.name) ? 1 : 0);
-                }, 0)
+              total: colorBlindDetermination.protan.total,
+              hits: _.reduce(vm.gameSets[vm.currentGameSetIndex].result.clicks, function(sum,n) {
+                var protanMatch = colorBlindDetermination.protan[n.name];
+                if(protanMatch) {
+                  if(protanMatch.length == 2) {
+                    if(n.value == -1) {
+                      return sum + 1;
+                    } else {
+                      return sum + (n.value == true ? -2 : 2)
+                    }
+                  }  else {
+                    var buttonType = n.value == true ? 'triangulo' : 'circulo';
+                    if(n.value == -1 || protanMatch.includes(buttonType)) {
+                      return sum + (n.value == true ? -1 : 1)
+                    } else {
+                      return sum;
+                    }
+                  }
+                } else {
+                  return sum;
+                }
+              }, 0)
             }
           }
           resultService.setResult('color-picker', vm.gameSets[vm.currentGameSetIndex].name, vm.gameSets[vm.currentGameSetIndex].result);

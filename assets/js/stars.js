@@ -24,7 +24,6 @@
         currentMessage: vm.instructionsMessage
       }
       vm.currentColorSetIndex = 0;
-      vm.rightColorSetClass = 'star-color-set-2';
 
       vm.starsConfiguration = {
         noStars: [1,2,3],
@@ -34,59 +33,16 @@
       vm.starsQueueCurrentIndex = 0;
       vm.starsQueue = [];
 
-      vm.colorConfigurations = [
-        {
-          name: 'star-colors-1',
-          circles: {
-            'star-color-set-1': 14,
-            'star-color-set-2': 14
-          },
-          stars: {
-            'star-color-set-1': 4,
-            'star-color-set-2': 3,
-            'star-color-set-3': 3,
-            'star-color-set-4': 2
-          },
-          match: vm.rightColorSetClass
-        },
-        {
-          name: 'star-colors-2',
-          circles: {
-            'star-color-set-1': 7,
-            'star-color-set-2': 7,
-            'star-color-set-3': 7,
-            'star-color-set-4': 7
-          },
-          stars: {
-            'star-color-set-1': 4,
-            'star-color-set-2': 4,
-            'star-color-set-3': 4
-          },
-          match: vm.rightColorSetClass
-        },
-        {
-          name: 'star-colors-3',
-          circles: {
-            'star-color-set-1': 10,
-            'star-color-set-2': 9,
-            'star-color-set-3': 9
-          },
-          stars: {
-            'star-color-set-1': 4,
-            'star-color-set-2': 4,
-            'star-color-set-3': 2,
-            'star-color-set-4': 1,
-            'star-color-set-5': 2
-          },
-          match: vm.rightColorSetClass
-        }
-      ]
-
       vm.colorSets = [
         'star-colors-1',
         'star-colors-2',
         'star-colors-3'
       ];
+
+      vm.colorBlindDetermination = {
+        deutan: 8,
+        protan: 7
+      };
 
       vm.currentColorSet = vm.colorSets[vm.currentColorSetIndex]
 
@@ -95,32 +51,9 @@
 
       function init() {
         vm.enableGame = false;
-        /*
-        generateRandomRotationStyles();
-        var colorSetDistribution = generateRandomColorSets();
-        var grid = document.querySelector('.stars-grid');
-        var gridWidth = grid.clientWidth;
-        var gridHeight = grid.clientHeight;
-
-        var divWidth =  gridWidth / vm.grid.dimensions.x;
-        var divHeight =  gridHeight / vm.grid.dimensions.y;
-
-        var circles = _.map(_.range(vm.grid.circles), () => 'circle');
-        var stars = _.map(_.range(vm.grid.stars), () => 'star');
-        var emptyRange = _.range((vm.grid.dimensions.x * vm.grid.dimensions.y) - stars.length - circles.length - 10);
-        var empty = _.map(emptyRange, () => 'empty');
-
-        var itemList = circles.concat(empty).concat(stars);
-        generate(_.shuffle(itemList), divWidth, divHeight, colorSetDistribution);
-        vm.colorConfigurations[vm.currentColorSetIndex].result = {
-          'star-color-set-1': 0,
-          'star-color-set-2': 0,
-          'star-color-set-3': 0,
-          'match': vm.colorConfigurations[vm.currentColorSetIndex].match,
-          'expected': vm.colorConfigurations[vm.currentColorSetIndex].stars[vm.colorConfigurations[vm.currentColorSetIndex].match]
-        };
-        */
         vm.results={
+          deutan: 0,
+          protan: 0,
           stars: {
             success: [],
             missed: []
@@ -175,9 +108,13 @@
         soundService.play('button-click');
         var currentItem = vm.starsQueue[vm.starsQueueCurrentIndex];
         var currentIsStar = vm.starsConfiguration.stars.includes(currentItem);
+        var isDeutan = vm.colorBlindDetermination.deutan == vm.starsQueue[vm.starsQueueCurrentIndex]
+        var isProtan = vm.colorBlindDetermination.protan == vm.starsQueue[vm.starsQueueCurrentIndex]
         if(decisionIsYes) {
           if(currentIsStar) {
             vm.results.stars.success.push(currentItem);
+            if(isDeutan) vm.results.deutan--;
+            if(isProtan) vm.results.protan--;
           } else {
             vm.results.noStars.missed.push(currentItem);
           }
@@ -185,6 +122,8 @@
         } else {
           if(currentIsStar) {
             vm.results.stars.missed.push(currentItem);
+            if(isDeutan) vm.results.deutan++;
+            if(isProtan) vm.results.protan++;
           } else {
             vm.results.noStars.success.push(currentItem);
           }

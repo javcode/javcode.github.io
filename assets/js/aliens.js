@@ -13,8 +13,14 @@
     vm.grid = [];
 
     vm.instructionsMessage = 'Presiona los circulos que contienen extra-terrestres'
+    vm.emptyResult = {
+      aliens: {}, 
+      circles: {},
+      deutan: 0,
+      protan: 0
+    }
 
-    vm.currentColorSetIndex = 2;
+    vm.currentColorSetIndex = 0;
     vm.colorSets = [
       {
         name: 'color-set-1',
@@ -24,17 +30,15 @@
           //15
         },
         time: 10,
-        result: { 
+        result: Object.assign(_.cloneDeep(vm.emptyResult),{
           name: 'color-set-1',
-          aliens: {}, 
-          circles: {},
-          total: 4
-        },
+        }),
         circles: [
           {
             circle: 'circle-color-set-1', //amarelo
             alien: 'alien-color-set-1', //rojo
-            match: true
+            match: true,
+            deutan: true
           },
           {
             circle: 'circle-color-set-2', //violeta
@@ -44,12 +48,14 @@
           {
             circle: 'circle-color-set-1',//amarelo
             alien: 'alien-color-set-3', //piel
-            match: true
+            match: true,
+            deutan: true
           },
           {
             circle: 'circle-color-set-3', // marron oscruro
             alien: 'alien-color-set-1', // rojo
-            match: true
+            match: true,
+            protan: true
           },
           {
             circle: 'circle-color-set-2', //violeta
@@ -63,11 +69,17 @@
           },
           {
             circle: 'circle-color-set-2',
-            repeat: 4
+            repeat: 3
           },
           {
             circle: 'circle-color-set-1',
-            repeat: 5
+            repeat: 4,
+            deutan: true
+          },
+          {
+            circle: 'circle-color-set-3',
+            repeat: 2,
+            protan: true
           }
         ]
       },{
@@ -77,18 +89,17 @@
           y: 4
           //24
         },
-        time: 10,
-        result: { 
+        time: 15,
+        result: Object.assign(_.cloneDeep(vm.emptyResult),{
           name: 'color-set-2',
-          aliens: {}, 
-          circles: {}
-        },
+        }),
         circles: [
            {
             circle: 'circle-color-set-1', //amarelo
             alien: 'alien-color-set-1', //rojo
             match: true,
-            repeat: 2
+            repeat: 2,
+            deutan: true
           },
           {
             circle: 'circle-color-set-2', //violeta
@@ -99,12 +110,14 @@
             circle: 'circle-color-set-1',//amarelo
             alien: 'alien-color-set-3', //piel
             match: true,
-            repeat: 2
+            repeat: 2,
+            deutan: true
           },
           {
             circle: 'circle-color-set-3', // marron oscruro
             alien: 'alien-color-set-1', // rojo
-            match: true
+            match: true,
+            protan: true
           },
           {
             circle: 'circle-color-set-2', //violeta
@@ -119,16 +132,22 @@
           },
           {
             circle: 'circle-color-set-2',
-            repeat: 3
+            repeat: 2
           },
           {
             circle: 'circle-color-set-1',
-            repeat: 6
+            repeat: 4,
+            deutan: true
+          },
+          {
+            circle: 'circle-color-set-3',
+            repeat: 3,
+            protan: true
           }
         ]
       },{
         name: 'color-set-3',
-        time: 15,
+        time: 20,
         grid: {
           x: 8,
           y: 5
@@ -136,17 +155,16 @@
           // 10 se ven
           // 8 no se ven
         },
-        result: { 
+        result: Object.assign(_.cloneDeep(vm.emptyResult),{
           name: 'color-set-3',
-          aliens: {}, 
-          circles: {}
-        },
+        }),
         circles: [
           {
             circle: 'circle-color-set-1', //amarelo
             alien: 'alien-color-set-1', //rojo
             match: true,
-            repeat: 3
+            repeat: 3,
+            deutan: true
           },
           {
             circle: 'circle-color-set-2', //violeta
@@ -158,13 +176,15 @@
             circle: 'circle-color-set-1',//amarelo
             alien: 'alien-color-set-3', //piel
             match: true,
-            repeat: 3
+            repeat: 3,
+            deutan: true
           },
           {
             circle: 'circle-color-set-3', // marron oscruro
             alien: 'alien-color-set-1', // rojo
             match: true,
-            repeat: 4
+            repeat: 4,
+            protan: true
           },
           {
             circle: 'circle-color-set-2', //violeta
@@ -180,11 +200,17 @@
           },
           {
             circle: 'circle-color-set-2',
-            repeat: 10
+            repeat: 8
           },
           {
             circle: 'circle-color-set-1',
-            repeat: 10
+            repeat: 7,
+            deutan: true
+          },
+          {
+            circle: 'circle-color-set-3',
+            repeat: 5,
+            protan: true
           }
         ]
       }
@@ -231,6 +257,8 @@
         var item = itemList[i];
         var newItem = {
           isAlien: item.alien ? true : false,
+          isProtan: item.protan ? true : false,
+          isDeutan: item.deutan ? true : false,
           circleClass: item.circle,
           alienClass: item.alien,
           style: {
@@ -247,7 +275,7 @@
       $scope.$apply(function() {
         vm.enableGame = true;
       })
-      /*
+
       vm.gameInterval = setInterval(function() {
         if(vm.timeLeft <= 0) {
           if(vm.currentColorSetIndex < 2) {
@@ -262,7 +290,30 @@
         }
         vm.timeLeft--;
       }, 1000);
-      */
+
+    }
+
+    function calculateResults() {
+      _.each(vm.grid, function(item) {
+        if(item.isDeutan) {
+          var itemDeutanResult = 0;
+          if(item.isAlien) {
+            itemDeutanResult+= item.alreadyClicked ? -1 : 1;
+          } else {
+            itemDeutanResult+= item.alreadyClicked ? 1 : 0;
+          }
+          vm.colorSets[vm.currentColorSetIndex].result.deutan+= itemDeutanResult;
+        }
+        if(item.isProtan) {
+          var itemProtanResult = 0;
+          if(item.isAlien) {
+            itemProtanResult+= item.alreadyClicked ? -1 : 1;
+          } else {
+            itemProtanResult+= item.alreadyClicked ? 1 : 0;
+          }
+          vm.colorSets[vm.currentColorSetIndex].result.protan+= itemProtanResult;
+        }
+      });
     }
 
     function finishColorSet() {
@@ -272,7 +323,9 @@
       vm.colorSets[vm.currentColorSetIndex].result.total = _.reduce(vm.colorSets[vm.currentColorSetIndex].circles, function(sum,n) {
         return sum + (n.match ? n.repeat || 1 : 0)
       }, 0);
+      calculateResults();
       resultService.setResult('aliens', vm.colorSets[vm.currentColorSetIndex].name, _.cloneDeep(vm.colorSets[vm.currentColorSetIndex].result));
+      vm.colorSets[vm.currentColorSetIndex].result = Object.assign(_.cloneDeep(vm.emptyResult), { name: vm.colorSets[vm.currentColorSetIndex].result.name });
       vm.currentColorSetIndex++;
       vm.grid = [];
       init();

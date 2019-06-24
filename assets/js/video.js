@@ -43,7 +43,7 @@
         playMessage: 'Continuar'
       },
       finish: {
-        video:  '/assets/videos/presentacion_personaje.mp4',
+        video:  '/assets/videos/final.mp4',
         nextState: 'menu',
         playMessage: 'Finalizar'
       }

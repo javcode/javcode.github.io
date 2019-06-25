@@ -28,6 +28,12 @@
       'triangle'
     ];
 
+    vm.restart = function() {
+      $state.go('index', {}, {
+        reload: true
+      })
+    }
+
     function shiftArrayToRight(arr, places) {
       var resultArray = _.clone(arr);
       for (var i = 0; i < places; i++) {

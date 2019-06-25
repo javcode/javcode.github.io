@@ -1,4 +1,10 @@
 <div class="results-container" style="color: #fff;">
+  <div class="play-again">
+    <a  href="javascript:void(0)" ng-click="vm.restart()">
+      <img src="/assets/img/play.svg" width="100"/>
+      <h4>Jugar de nuevo</h4>
+    </a>
+  </div>
   <div ng-if="!vm.viewingResults" class="results-container-first">
     <img class="results-first" src="/assets/img/results/results_view.png"/>
     <a href="javascript:void(0)" class="view-results-button" ng-click="vm.viewingResults = true">

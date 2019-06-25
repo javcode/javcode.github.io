@@ -44,7 +44,7 @@
       },
       finish: {
         video:  '/assets/videos/final.mp4',
-        nextState: 'menu',
+        nextState: 'results',
         playMessage: 'Finalizar'
       }
     }

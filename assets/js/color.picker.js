@@ -109,17 +109,19 @@
         vm.enableColorPickerGame = true;
         setTimeout(function() {
           if(zoomToPanel) {
-            $('.tablero-columnas .tablero-columna-panel:nth-child(3) .tablero-boton').zoomTo({targetsize:0.13});
+            var zoomContainer = $('.zoomContainer');
+            $('.tablero-columnas .tablero-columna-panel:nth-child(3) .tablero-boton').zoomTo({
+              targetsize: 0.12,
+              root: zoomContainer
+            });
           }
         });
         vm.timeLeft = vm.gameTime;
-        
         vm.timer = setInterval(function() {
           setStatusBarMessage("00:" + (vm.timeLeft > 9 ? '':'0') + vm.timeLeft);
           vm.timeLeft--;
           checkIfGameIsFinished();
         }, 1000);
-        
       }
 
       function checkIfGameIsFinished() {

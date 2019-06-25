@@ -1,30 +1,36 @@
-<div class="tablero">
-  <img class="tablero-fondo" ng-class="{'grayscale': vm.enableColorPickerGame}" src="/assets/img/tablero_nave.png" width="100%" style="object-fit:cover;"/>
-  <div class="tablero-panel {{vm.currentGameSet.name}}">
-    <div class="tablero-reloj-panel">
-      <ng-include class="tablero-reloj" src="'/assets/img/reloj-tablero.svg'"/>
-      <ng-include class="tablero-reloj" src="'/assets/img/reloj-tablero.svg'"/>
-      <ng-include class="tablero-reloj" src="'/assets/img/reloj-tablero.svg'"/>
-    </div>
-    <ng-include class="tablero-recuadro" src="'/assets/img/panel-recuadro.svg'"/>
-    <div class="tablero-columnas" ng-class="{'disable-pointer': !vm.enableColorPickerGame }" ng-show="vm.enableColorPickerGame">
-      <div class="tablero-columna-panel relative {{item.colorSet}}" ng-repeat="item in vm.buttonsList">
-        <ng-include class="tablero-columna-panel-section" src="item.columnWrapper" />
-        <div ng-repeat="button in item.buttons" class="color-picker-button">
-          <ng-include class="tablero-boton {{button}} shift-{{item.shift}}" src="'/assets/img/' + button + '.svg'" ng-click="vm.clickButton(item, button)"/>
+<div class="zoomViewport" style="height: 100%">
+    <div class="zoomContainer" style="height: 100%">
+      <div class="tablero">
+        <img class="tablero-fondo" ng-class="{'grayscale': vm.enableColorPickerGame}" src="/assets/img/tablero_nave.png" width="100%" style="object-fit:cover;"/>
+        
+          <div class="tablero-panel {{vm.currentGameSet.name}}">
+            <div class="tablero-reloj-panel">
+              <ng-include class="tablero-reloj" src="'/assets/img/reloj-tablero.svg'"/>
+              <ng-include class="tablero-reloj" src="'/assets/img/reloj-tablero.svg'"/>
+              <ng-include class="tablero-reloj" src="'/assets/img/reloj-tablero.svg'"/>
+            </div>
+            <ng-include class="tablero-recuadro" src="'/assets/img/panel-recuadro.svg'"/>
+            <div class="tablero-columnas" ng-class="{'disable-pointer': !vm.enableColorPickerGame }" ng-show="vm.enableColorPickerGame">
+              <div class="tablero-columna-panel relative {{item.colorSet}}" ng-repeat="item in vm.buttonsList">
+                <ng-include class="tablero-columna-panel-section" src="item.columnWrapper" />
+                <div ng-repeat="button in item.buttons" class="color-picker-button">
+                  <ng-include class="tablero-boton {{button}} shift-{{item.shift}}" src="'/assets/img/' + button + '.svg'" ng-click="vm.clickButton(item, button)"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tablero-reloj-juego">
+            <ng-include src="'/assets/img/reloj.svg'"/>
+            <div class="color-picker-message">
+              {{vm.statusBar.currentMessage}}
+            </div>
+          </div>
+          <div class="tablero-instrucciones-juego">
+            Presiona los triangulos
+            <div class="tablero-instrucciones-juego-figura icon icon-triangle"></div>
+            que ves en el panel
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="tablero-reloj-juego">
-    <ng-include src="'/assets/img/reloj.svg'"/>
-    <div class="color-picker-message">
-      {{vm.statusBar.currentMessage}}
-    </div>
-  </div>
-  <div class="tablero-instrucciones-juego">
-    Presiona los triangulos
-    <div class="tablero-instrucciones-juego-figura icon icon-triangle"></div>
-    que ves en el panel
   </div>
 </div>
